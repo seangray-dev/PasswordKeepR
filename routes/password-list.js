@@ -9,7 +9,16 @@ const express = require('express');
 const router  = express.Router();
 
 router.get('/', (req, res) => {
-  res.render('password-list');
+  // Data for coding purpose, will be replaced with database query!
+const storedPasswords = [
+  {id: 01, website: 'website01', username: 'username01', password: 'password01'},
+  {id: 02, website: 'website02', username: 'username02', password: 'password02'},
+  {id: 03, website: 'website03', username: 'username03', password: 'password03'},
+  {id: 04, website: 'website04', username: 'username04', password: 'password04'},
+  {id: 05, website: 'website05', username: 'username05', password: 'password05'}
+];
+
+  res.render('password-list', {data: storedPasswords});
 });
 
 module.exports = router;
