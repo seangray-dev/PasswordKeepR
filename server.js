@@ -31,6 +31,9 @@ app.use(express.static("public"));
 const userApiRoutes = require("./routes/users-api");
 const widgetApiRoutes = require("./routes/widgets-api");
 const usersRoutes = require("./routes/users");
+const registerRoutes = require("./routes/register");
+const loginRoutes = require("./routes/login");
+const dashboardRoutes = require("./routes/dashboard");
 const passwordsRoutes = require("./routes/password-list");
 
 // Mount all resource routes
@@ -39,7 +42,6 @@ const passwordsRoutes = require("./routes/password-list");
 app.use("/api/users", userApiRoutes);
 app.use("/api/widgets", widgetApiRoutes);
 app.use("/users", usersRoutes);
-app.use("/passwords", passwordsRoutes);
 // Note: mount other resources here, using the same pattern above
 
 // Home page
@@ -48,10 +50,6 @@ app.use("/passwords", passwordsRoutes);
 
 app.get("/", (req, res) => {
   res.render("index");
-});
-
-app.get("/register", (req, res) => {
-  res.render("register");
 });
 
 app.listen(PORT, () => {
