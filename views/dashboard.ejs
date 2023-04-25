@@ -31,22 +31,69 @@
     <script defer src="/scripts/app.js"></script>
   </head>
 
-  <body>
+  <body class="dashboard">
     <nav class="nav">
       <div class="nav__container container">
         <a href="/" class="nav__logo">
           Password<span class="nav__logo-light">KeepR</span>
         </a>
+        <!-- handle logout feature -->
+        <a href="/"><button class="btn-secondary">Logout</button></a>
       </div>
     </nav>
-    <main class="container dashboard">
+    <main class="container">
       <h1 class="dashboard__title">Dashboard</h1>
-      <section>
-        <h2 class="dashboard__heading">Your Passwords</h2>
+      <section class="dashboard__passwords">
+        <header class="dashboard__passwords-header">
+          <h2 class="dashboard__heading">Passwords</h2>
+          <div>
+            <!-- add filter functionality here -->
+            <button class="dashboard__passwords-add btn-primary">
+              Add New
+            </button>
+          </div>
+        </header>
+        <!-- these are examples -->
+        <div class="dashboard__passwords-category">
+          <h3 class="dashboard__heading-category">Social</h3>
+          <ul class="dashboard__passwords-cards">
+            <li class="dashboard__passwords-card">
+              <div class="dashboard__passwords-card-row-1">
+                <span class="dashboard__passwords-username">username</span>
+                <!-- should link to website -->
+                <a href="" target="_blank" class="dashboard__passwords-website"
+                  >example.com</a
+                >
+              </div>
+              <div class="dashboard__passwords-card-row-2">
+                <span class="hidden-password">o!_k7#TLzy9v`S|</span>
+                <span class="show-password">******</span>
+                <div class="dashboard__passwords-buttons">
+                  <button class="show-password-btn">
+                    <i class="fa-solid fa-eye eye-show"></i>
+                    <i class="fa-solid fa-eye-slash eye-hide"></i>
+                  </button>
+                  <button class="copy-to-clipboard">
+                    <i class="fa-solid fa-clipboard"></i>
+                  </button>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="dashboard__passwords-category">
+          <h3 class="dashboard__heading-category">Work</h3>
+          <ul class="dashboard__passwords-cards"></ul>
+        </div>
+        <div class="dashboard__passwords-category">
+          <h3 class="dashboard__heading-category">Entertainment</h3>
+          <ul class="dashboard__passwords-cards"></ul>
+        </div>
       </section>
-      <section>
+
+      <!-- <section>
         <h2 class="dashboard__heading">Add a new password</h2>
-      </section>
+      </section> -->
     </main>
   </body>
 </html>
