@@ -1,13 +1,6 @@
 // See: https://sass-lang.com/
 
-:root {
-  --color-heading: #24053e;
-  --color-body: #584d62;
-  --color-primary: #44ffa1;
-  --color-ghostWhite: #fcf8ff;
-  --font-heading: "Fraunces", serif;
-  --font-body: "Manrope", sans-serif;
-}
+// CSS RESET DEFAULTS
 
 *,
 *::after,
@@ -20,8 +13,9 @@ a,
 a:hover,
 a:focus,
 a:active {
-  text-decoration: none;
   color: inherit;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 h1,
@@ -39,11 +33,27 @@ button {
   border: none;
   color: inherit;
   font-family: inherit;
+  cursor: pointer;
 }
 
 ul,
 ol {
   list-style-type: none;
+}
+
+body {
+  min-height: 100vh;
+}
+
+// Global Styles
+
+:root {
+  --color-heading: #24053e;
+  --color-body: #584d62;
+  --color-primary: #44ffa1;
+  --color-ghostWhite: #fcf8ff;
+  --font-heading: "Fraunces", serif;
+  --font-body: "Manrope", sans-serif;
 }
 
 .btn-primary {
@@ -61,5 +71,20 @@ ol {
 .btn-primary:hover,
 .btn-primary:focus {
   background-color: transparent;
+  color: var(--color-primary);
+}
+
+.btn-secondary {
+  font-weight: 700;
+  font-size: 1rem;
+  text-decoration: underline;
+  text-decoration-color: var(--color-primary);
+  text-underline-offset: 5px;
+  text-decoration-thickness: 3px;
+  transition: color 0.3s ease;
+}
+
+.btn-secondary:hover,
+.btn-primary:focus {
   color: var(--color-primary);
 }
