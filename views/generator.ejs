@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>PasswordKeepR | Login</title>
+
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" />
+    <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="stylesheet" href="/styles/layout.css" />
+
+    <!-- fonts -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Manrope:wght@300;400;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- font-awesome-icons -->
+    <script
+      src="https://kit.fontawesome.com/be692c047d.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="/vendor/jquery-3.0.0.js"></script>
+    <script defer src="/scripts/app.js"></script>
+  </head>
+
+  <body class="register-login-body">
+    <nav class="nav">
+      <div class="nav__container container">
+        <a href="/" class="nav__logo">
+          Password<span class="nav__logo-light">KeepR</span>
+        </a>
+        <a href="/login"><button class="btn-secondary">Login</button></a>
+      </div>
+    </nav>
+    <main class="generator container">
+      <section>
+        <h1 class="generator__title">Password Generator</h1>
+        <div class="generator__card">
+          <div class="generator__card-password">
+            <span>password</span>
+            <i class="fa-solid fa-copy fa-lg"></i>
+          </div>
+          <form class="generator__form" action="">
+            <div class="input-char-length">
+              <label class="char-length-span" for="char-length"
+                ><p>Character Length</p>
+                <span class="char-lenght-num">10</span>
+              </label>
+              <input
+                type="range"
+                name="char-length"
+                min="6"
+                max="20"
+                step="1"
+              />
+            </div>
+            <div class="generator__form-input">
+              <input type="checkbox" value="uppercase" name="uppercase" />
+              <label for="uppercase">Include Uppercase Letters</label>
+            </div>
+            <div class="generator__form-input">
+              <input type="checkbox" value="lowercase" name="lowercase" />
+              <label for="lowercase">Include Lowercase Letters</label>
+            </div>
+            <div class="generator__form-input">
+              <input type="checkbox" value="numbers" name="numbers" />
+              <label for="numbers">Include Numbers</label>
+            </div>
+            <div class="generator__form-input">
+              <input type="checkbox" value="symbols" name="symbols" />
+              <label for="symbols">Include Symbols</label>
+            </div>
+            <div class="password-strength">
+              <span>Strength</span>
+              <div class="strength-col2">
+                <span>Medium</span>
+                <div class="strength-bars">
+                  <div class="strength-bar"></div>
+                  <div class="strength-bar"></div>
+                  <div class="strength-bar"></div>
+                  <div class="strength-bar"></div>
+                </div>
+              </div>
+            </div>
+            <button class="btn-primary">Generate</button>
+          </form>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
