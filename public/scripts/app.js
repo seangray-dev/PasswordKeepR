@@ -140,3 +140,27 @@ window.addEventListener("click", (event) => {
     hideModalWithFadeOut(deletePasswordModal);
   }
 });
+
+// Add new password - (only hides and shows modal currently)
+const addPasswordButton = document.querySelector(".dashboard__passwords-add");
+const newPasswordModal = document.getElementById("newPasswordModal");
+const cancelNewPasswordButton = newPasswordModal.querySelector(
+  ".cancel-new-password"
+);
+
+addPasswordButton.addEventListener("click", () => {
+  // Show the newPasswordmodal
+  showModal(newPasswordModal);
+
+  // When the cancel button is clicked, hide the newPasswordModal with fade-out animation
+  cancelNewPasswordButton.addEventListener("click", () => {
+    hideModalWithFadeOut(newPasswordModal);
+  });
+});
+
+// When the user clicks anywhere outside of the newPasswordModal, close it with fade-out animation
+window.addEventListener("click", (event) => {
+  if (event.target === newPasswordModal) {
+    hideModalWithFadeOut(newPasswordModal);
+  }
+});
