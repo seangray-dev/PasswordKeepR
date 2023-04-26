@@ -1,4 +1,21 @@
+CREATE DATABASE passwordkeepr;
+
+\c passwordkeepr;
+
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+
+CREATE TABLE organizations (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  admin_id UUID,
+  name VARCHAR(255) UNIQUE NOT NULL
+);
+
+CREATE TABLE websites (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  name VARCHAR(255) NOT NULL,
+  category VARCHAR(255) NOT NULL
+);
 
 CREATE TABLE users (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -15,16 +32,4 @@ CREATE TABLE stored_passwords (
   username VARCHAR(255) NOT NULL,
   password VARCHAR(255) NOT NULL,
   category VARCHAR(255) NOT NULL
-);
-
-CREATE TABLE websites (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  name VARCHAR(255) NOT NULL,
-  category VARCHAR(255) NOT NULL
-);
-
-CREATE TABLE organizations (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  admin_id UUID,
-  name VARCHAR(255) UNIQUE NOT NULL
 );
