@@ -418,3 +418,51 @@
     }
   }
 }
+
+.edit-password-modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.edit-password-modal-content {
+  background-color: var(--color-ghostWhite);
+  color: var(--color-body);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 10rem auto;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 327px;
+}
+.edit-password-modal-title {
+  color: var(--color-heading);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group input {
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 0.5rem;
+  border-bottom: 2px solid var(--color-heading);
+  transition: all 0.3s ease;
+  margin-bottom: 2rem;
+}
+
+.form-group .edit-password-modal-form-buttons {
+  margin-top: 2rem;
+  display: flex;
+}

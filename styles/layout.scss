@@ -52,6 +52,7 @@ body {
   --color-body: #584d62;
   --color-primary: #44ffa1;
   --color-ghostWhite: #fcf8ff;
+  --color-error: #ec5757;
   --font-heading: "Fraunces", serif;
   --font-body: "Manrope", sans-serif;
 }
@@ -88,4 +89,23 @@ body {
 .btn-secondary:hover,
 .btn-primary:focus {
   color: var(--color-primary);
+}
+
+.btn-red {
+  cursor: pointer;
+  background-color: var(--color-error);
+  color: white;
+  padding: 12px 24px;
+  border: 1px solid var(--color-error);
+  max-width: 190px;
+  margin-inline: auto;
+  font-weight: 700;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+}
+
+.btn-red:hover,
+.btn-red:focus {
+  background-color: transparent;
+  color: var(--color-error);
 }

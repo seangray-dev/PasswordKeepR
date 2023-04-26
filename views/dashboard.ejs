@@ -120,10 +120,35 @@
           <ul class="dashboard__passwords-cards"></ul>
         </div>
       </section>
-
-      <!-- <section>
-        <h2 class="dashboard__heading">Add a new password</h2>
-      </section> -->
+      <div class="edit-password-modal" id="editPasswordModal">
+        <div class="edit-password-modal-content">
+          <h2 class="edit-password-modal-title">Edit Password</h2>
+          <form class="edit-password-modal-form">
+            <div class="form-group">
+              <label for="newPassword">New Password:</label>
+              <input
+                type="password"
+                id="newPassword"
+                name="newPassword"
+                required
+              />
+              <label for="confirmNewPassword">Confirm New Password:</label>
+              <input
+                type="password"
+                id="confirmNewPassword"
+                name="confirmNewPassword"
+                required
+              />
+            </div>
+            <div class="edit-password-modal-form-buttons">
+              <button type="button" class="cancel-edit-password btn-red">
+                Cancel
+              </button>
+              <button class="btn-primary" type="submit">Save Changes</button>
+            </div>
+          </form>
+        </div>
+      </div>
     </main>
   </body>
 </html>
