@@ -363,6 +363,7 @@
       display: flex;
       flex-direction: column;
       gap: 1.5rem;
+      box-shadow: 0px 10px 10px 0px rgba(72, 84, 159, 0.1004);
 
       @media (min-width: 768px) {
         flex-direction: row;
@@ -419,6 +420,8 @@
   }
 }
 
+// Modals //
+
 .edit-password-modal {
   display: none;
   position: fixed;
@@ -429,6 +432,29 @@
   height: 100%;
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.4);
+  animation: fade-in 0.5s;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.edit-password-modal.fade-out {
+  animation: fade-out 0.5s;
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 .edit-password-modal-content {
@@ -462,7 +488,8 @@
   margin-bottom: 2rem;
 }
 
-.form-group .edit-password-modal-form-buttons {
-  margin-top: 2rem;
+.edit-password-modal-form-buttons {
+  margin-top: 1rem;
   display: flex;
+  justify-content: space-between;
 }
