@@ -82,3 +82,14 @@ copyToClipboardBtn.forEach((btn, index) => {
       .catch((err) => alert("Copy to clipboard failed!"));
   });
 });
+
+// Delete Password
+const deletePasswordButtons = document.querySelectorAll(".delete-password");
+
+deletePasswordButtons.forEach((button, index) => {
+  button.addEventListener("click", () => {
+    // Get the password card element and remove it
+    const passwordCard = button.closest(".dashboard__passwords-card");
+    passwordCard.remove();
+  });
+});
