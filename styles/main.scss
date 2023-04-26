@@ -29,7 +29,7 @@
 
   &__logo {
     font-weight: 800;
-    font-size: 1.2rem;
+    font-size: clamp(1rem, 0.4718rem + 2.2535vw, 2rem);
 
     &-light {
       font-weight: 300;
