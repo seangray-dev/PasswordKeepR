@@ -55,6 +55,41 @@
         </header>
         <!-- these are examples -->
         <div class="dashboard__passwords-category">
+          <!-- replace organization in h3 with the name of the organization the user belongs to -->
+          <h3 class="dashboard__heading-category">Organization Passwords</h3>
+          <ul class="dashboard__passwords-cards">
+            <li class="dashboard__passwords-card">
+              <div class="dashboard__passwords-card-row-1">
+                <span class="dashboard__passwords-username">username</span>
+                <!-- should link to website -->
+                <a href="" target="_blank" class="dashboard__passwords-website"
+                  >example.com</a
+                >
+              </div>
+              <div class="dashboard__passwords-card-row-2">
+                <span class="hidden-password hidden">o!_k7#TLzy9v`S|</span>
+                <span class="show-password">******</span>
+                <div class="dashboard__passwords-buttons">
+                  <button class="show-password-btn">
+                    <i class="fa-solid fa-eye eye-show fa-lg"></i>
+                    <i class="fa-solid fa-eye-slash fa-lg eye-hide hidden"></i>
+                  </button>
+                  <button class="copy-to-clipboard">
+                    <i class="fa-solid fa-clipboard fa-lg"></i>
+                    <i class="fa-solid fa-check fa-lg hidden"></i>
+                  </button>
+                  <button class="edit-password">
+                    <i class="fa-solid fa-pencil fa-lg"></i>
+                  </button>
+                  <button class="delete-password">
+                    <i class="fa-solid fa-trash fa-lg"></i>
+                  </button>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="dashboard__passwords-category">
           <h3 class="dashboard__heading-category">Social</h3>
           <ul class="dashboard__passwords-cards">
             <li class="dashboard__passwords-card">
@@ -160,11 +195,17 @@
               <input type="text" id="username" name="username" required />
               <label for="website">Website:</label>
               <input type="text" id="website" name="website" required />
-              <label for="password">Password:</label>
-              <input type="password" id="password" name="password" required />
-              <label for="category">Category:</label>
+              <div class="form-group-password">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required />
+                <a class="btn-secondary generator-link" href="/generator"
+                  >Generate</a
+                >
+              </div>
+              <!-- If user wants to add new category, and selects add new it should add it as an option to the select input -->
               <select id="category" name="category" required>
                 <option value="" disabled selected>Select a category</option>
+                <option value="add new">Add New</option>
                 <option value="social">Social</option>
                 <option value="work">Work</option>
                 <option value="entertainment">Entertainment</option>
