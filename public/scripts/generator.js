@@ -22,7 +22,7 @@ copyToClipboardButton.addEventListener("click", () => {
 
 // To display character length and password strength when user select value from the range slider:
 const characterLengthInput = document.querySelector(".input-char-length input");
-const characterLengthOutput = document.querySelector(".char-lenght-num");
+const characterLengthOutput = document.querySelector(".char-length-num");
 
 characterLengthInput.addEventListener("change", () => {
   characterLengthOutput.innerHTML = characterLengthInput.value;
