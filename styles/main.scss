@@ -525,7 +525,7 @@
   .strength-bar {
     width: 10px;
     height: 28px;
-    background: transparent;
+    background: global-variable-exists($name: --strength-medium);
     border: 2px solid white;
   }
 }

@@ -1,13 +1,7 @@
+// To copy the generated password:
 const generatedPassword = document.querySelector(".generator__card-password span");
 const copyToClipboardButton = document.querySelector(".fa-copy");
 const checkIcon = document.querySelector(".fa-check");
-const characterLengthInput = document.querySelector(".input-char-length input");
-const characterLengthOutput = document.querySelector(".char-lenght-num");
-const includeUppercase = document.getElementById("includeUppercase");
-const includeLowercase = document.getElementById("includeLowercase");
-const includeNumber = document.getElementById("includeNumber");
-const includeSymbol = document.getElementById("includeSymbol");
-const generateButton = document.getElementById("generateButton");
 
 copyToClipboardButton.addEventListener("click", () => {
     navigator.clipboard
@@ -25,6 +19,11 @@ copyToClipboardButton.addEventListener("click", () => {
       .catch((err) => alert("Copy to clipboard failed!"));
 });
 
+
+// To display character length and password strength when user select value from the range slider:
+const characterLengthInput = document.querySelector(".input-char-length input");
+const characterLengthOutput = document.querySelector(".char-lenght-num");
+
 characterLengthInput.addEventListener("change", () => {
   characterLengthOutput.innerHTML = characterLengthInput.value;
   displayStrength(
@@ -32,6 +31,24 @@ characterLengthInput.addEventListener("change", () => {
     document.querySelectorAll(".generator__form-input input:checked").length);
 });
 
+
+// To display password strength when user select checkboxs for including options:
+const includeUppercase = document.getElementById("includeUppercase");
+const includeLowercase = document.getElementById("includeLowercase");
+const includeNumber = document.getElementById("includeNumber");
+const includeSymbol = document.getElementById("includeSymbol");
+
+[includeUppercase, includeLowercase, includeNumber, includeSymbol].forEach((checkbox) => {
+  checkbox.addEventListener("change", () => {
+    displayStrength(
+      characterLengthInput.value,
+      document.querySelectorAll(".generator__form-input input:checked").length);
+    });
+  });
+
+
+// Implement function to generate random password based on character length
+// as well as options for including uppercase, lowercase, number or symbol
 const generateRandomPassword = function (length, upper, lower, number, symbol) {
   const uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   const lowercase = "abcdefghijklmnopqrstuvwxyz";
@@ -65,6 +82,9 @@ const generateRandomPassword = function (length, upper, lower, number, symbol) {
   return output;
 }
 
+// Click generate button to generate password:
+const generateButton = document.getElementById("generateButton");
+
 generateButton.addEventListener("click", () => {
   let randomPassword =  generateRandomPassword(
     characterLengthInput.value,
@@ -76,28 +96,51 @@ generateButton.addEventListener("click", () => {
     generatedPassword.innerHTML = randomPassword;
 });
 
-// To display password stength:
+
+// Implement function to show password strength level
 const strengthText = document.querySelector(".strength-col2 span");
+const stengthBars = document.querySelectorAll(".strength-bar");
+const strengthBar1 = document.getElementById("strength-bar1");
+const strengthBar2 = document.getElementById("strength-bar2");
+const strengthBar3 = document.getElementById("strength-bar3");
+const strengthBar4 = document.getElementById("strength-bar4");
 
 const displayStrength = function (length, count) {
-  console.log(`length: ${length}, count: ${count}`);
   if (length >= 15 && count >= 3) {
     // strong
     strengthText.innerHTML = "STRONG";
-    document.querySelectorAll(".strength-bar").forEach((element) => {
+    stengthBars.forEach((bar) => {
+      bar.classList.remove("strength-strong", "strength-medium", "strength-weak", "strength-too-weak");
+      bar.classList.add("strength-strong");
     });
   }
   else if (length >= 10 && count >= 2) {
     // medium
     strengthText.innerHTML = "MEDIUM";
+    stengthBars.forEach((bar) => {
+      bar.classList.remove("strength-strong", "strength-medium", "strength-weak", "strength-too-weak");
+    });
+    [strengthBar1, strengthBar2, strengthBar3]. forEach((bar) => {
+      bar.classList.add("strength-medium");
+    });
   }
-  else if (length >= 6 && count >= 1) {
+  else if (length >= 8 && count >= 1) {
     // weak
     strengthText.innerHTML = "WEAK";
+    stengthBars.forEach((bar) => {
+      bar.classList.remove("strength-strong", "strength-medium", "strength-weak", "strength-too-weak");
+    });
+    [strengthBar1, strengthBar2]. forEach((bar) => {
+      bar.classList.add("strength-weak");
+    });
   }
   else {
     // too weak
     strengthText.innerHTML = "TOO WEAK!";
+    stengthBars.forEach((bar) => {
+      bar.classList.remove("strength-strong", "strength-medium", "strength-weak", "strength-too-weak");
+    });
+    strengthBar1.classList.add("strength-too-weak");
   }
 }
 
