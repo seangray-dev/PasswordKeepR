@@ -429,13 +429,18 @@
 .generator {
   display: grid;
   place-items: center;
-  min-height: 100vh;
+  min-height: 80vh;
+  font-weight: 700;
 
   &__title {
     margin-bottom: 1rem;
     text-align: center;
     font-size: 1rem;
     font-family: var(--font-heading);
+
+    @media (min-width: 768px) {
+      font-size: 1.5rem;
+    }
   }
 
   &__card {
@@ -443,19 +448,24 @@
     font-size: 1rem;
     background-color: var(--color-heading);
     border-radius: 8px;
-    padding: 1rem;
+    padding: 2rem;
     color: var(--color-body);
     display: flex;
     flex-direction: column;
     gap: 1rem;
 
+    @media (min-width: 768px) {
+      width: 540px;
+    }
+
     &-password {
       padding: 1rem;
-      background-color: #d8aef4;
+      background-color: var(--color-ghostWhite);
       border-radius: 8px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      font-size: 1.5rem;
     }
 
     &-password i {
@@ -472,7 +482,7 @@
 
   &__form {
     color: var(--color-body);
-    background-color: rgb(216, 174, 244);
+    background-color: var(--color-ghostWhite);
     display: flex;
     flex-direction: column;
     border-radius: 8px;
@@ -494,13 +504,46 @@
   .char-length-span {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    font-size: 1.125rem;
+  }
+
+  .char-length-num {
+    font-size: 2rem;
+  }
+
+  .char-length-input {
+    margin-top: 1rem;
+    -webkit-appearance: none;
+    width: 100%;
+    height: 8px;
+    background-color: var(--color-primary);
+    border-radius: 8px;
+    outline: none;
+  }
+
+  .char-length-input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    background-color: var(--color-heading);
+    border: 2px solid var(--color-primary);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+  }
+
+  .char-length-input::-webkit-slider-thumb:hover {
+    background-color: var(--color-ghostWhite);
+    border-color: var(--color-heading);
   }
 
   .password-strength {
     display: flex;
     gap: 57px;
     align-items: center;
-    background-color: black;
+    justify-content: space-between;
+    background-color: var(--color-body);
+    color: var(--color-ghostWhite);
     border-radius: 8px;
     padding: 1rem;
     text-transform: uppercase;

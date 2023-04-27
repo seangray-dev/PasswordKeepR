@@ -45,6 +45,25 @@ body {
   min-height: 100vh;
 }
 
+input[range] {
+  -webkit-appearance: none; /* Remove default styling */
+  width: 100%; /* Set width to fill container */
+  height: 10px; /* Set height */
+  background-color: gray; /* Set background color */
+  border-radius: 5px; /* Set border radius */
+  outline: none; /* Remove outline */
+}
+
+input[range]::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Remove default styling */
+  width: 20px; /* Set width */
+  height: 20px; /* Set height */
+  background-color: white; /* Set background color */
+  border-radius: 50%; /* Set border radius to make it round */
+  cursor: pointer; /* Change cursor on hover */
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2); /* Add a subtle box shadow */
+}
+
 // Global Styles
 
 :root {
