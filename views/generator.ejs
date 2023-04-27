@@ -29,6 +29,7 @@
 
     <script src="/vendor/jquery-3.0.0.js"></script>
     <script defer src="/scripts/app.js"></script>
+    <script defer src="/scripts/generator.js"></script>
   </head>
 
   <body class="register-login-body">
@@ -47,8 +48,9 @@
           <div class="generator__card-password">
             <span>password</span>
             <i class="fa-solid fa-copy fa-lg"></i>
+            <i class="fa-solid fa-check fa-lg hidden"></i>
           </div>
-          <form class="generator__form" action="">
+          <div class="generator__form">
             <div class="input-char-length">
               <label class="char-length-span" for="char-length"
                 ><p>Character Length</p>
@@ -57,25 +59,26 @@
               <input
                 type="range"
                 name="char-length"
+                value="10"
                 min="6"
                 max="20"
                 step="1"
               />
             </div>
             <div class="generator__form-input">
-              <input type="checkbox" value="uppercase" name="uppercase" />
+              <input id="includeUppercase" type="checkbox" value="uppercase" name="uppercase" />
               <label for="uppercase">Include Uppercase Letters</label>
             </div>
             <div class="generator__form-input">
-              <input type="checkbox" value="lowercase" name="lowercase" />
+              <input id="includeLowercase" type="checkbox" value="lowercase" name="lowercase" />
               <label for="lowercase">Include Lowercase Letters</label>
             </div>
             <div class="generator__form-input">
-              <input type="checkbox" value="numbers" name="numbers" />
+              <input id="includeNumber" type="checkbox" value="numbers" name="numbers" />
               <label for="numbers">Include Numbers</label>
             </div>
             <div class="generator__form-input">
-              <input type="checkbox" value="symbols" name="symbols" />
+              <input id="includeSymbol" type="checkbox" value="symbols" name="symbols" />
               <label for="symbols">Include Symbols</label>
             </div>
             <div class="password-strength">
@@ -90,8 +93,8 @@
                 </div>
               </div>
             </div>
-            <button class="btn-primary">Generate</button>
-          </form>
+            <button id="generateButton" class="btn-primary">Generate</button>
+          </div>
         </div>
       </section>
     </main>
