@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "local": "./node_modules/.bin/nodemon -L --ignore public/",
+    "db:create": "psql -f ./db/schema/create_database.sql",
     "db:reset": "node bin/resetdb.js"
   },
   "author": "Lighthouse Labs",
