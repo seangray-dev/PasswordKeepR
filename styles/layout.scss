@@ -148,3 +148,7 @@ input[range]::-webkit-slider-thumb {
 .strength-too-weak {
   background-color: var(--strength-low);
 }
+
+.error-message {
+  color: var(--color-error);
+}
