@@ -132,3 +132,19 @@ input[range]::-webkit-slider-thumb {
   background-color: transparent;
   color: var(--color-error);
 }
+
+.strength-strong {
+  background-color: var(--strength-strong);
+}
+
+.strength-medium {
+  background-color: var(--strength-medium);
+}
+
+.strength-weak {
+  background-color: var(--stength-weak);
+}
+
+.strength-too-weak {
+  background-color: var(--strength-low);
+}

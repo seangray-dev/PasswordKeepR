@@ -466,6 +466,10 @@
       justify-content: space-between;
       align-items: center;
       font-size: 1.5rem;
+
+      .hidden {
+        display: none;
+      }
     }
 
     &-password i {
@@ -564,7 +568,7 @@
   .strength-bar {
     width: 10px;
     height: 28px;
-    background: transparent;
+    background: global-variable-exists($name: --strength-medium);
     border: 2px solid white;
   }
 }

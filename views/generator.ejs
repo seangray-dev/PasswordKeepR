@@ -29,6 +29,7 @@
 
     <script src="/vendor/jquery-3.0.0.js"></script>
     <script defer src="/scripts/app.js"></script>
+    <script defer src="/scripts/generator.js"></script>
   </head>
 
   <body class="register-login-body">
@@ -47,8 +48,9 @@
           <div class="generator__card-password">
             <span>password</span>
             <i class="fa-solid fa-copy fa-lg"></i>
+            <i class="fa-solid fa-check fa-lg hidden"></i>
           </div>
-          <form class="generator__form" action="">
+          <div class="generator__form">
             <div class="input-char-length">
               <label class="char-length-span" for="char-length"
                 ><p>Character Length</p>
@@ -58,6 +60,7 @@
                 class="char-length-input"
                 type="range"
                 name="char-length"
+                value="10"
                 min="6"
                 max="20"
                 step="1"
@@ -65,6 +68,7 @@
             </div>
             <div class="generator__form-input">
               <input
+                id="includeUppercase"
                 class="generator__checkbox"
                 type="checkbox"
                 value="uppercase"
@@ -74,6 +78,7 @@
             </div>
             <div class="generator__form-input">
               <input
+                id="includeLowercase"
                 class="generator__checkbox"
                 type="checkbox"
                 value="lowercase"
@@ -83,6 +88,7 @@
             </div>
             <div class="generator__form-input">
               <input
+                id="includeNumber"
                 class="generator__checkbox"
                 type="checkbox"
                 value="numbers"
@@ -92,11 +98,13 @@
             </div>
             <div class="generator__form-input">
               <input
+                id="includeSymbol"
                 class="generator__checkbox"
                 type="checkbox"
                 value="symbols"
                 name="symbols"
               />
+
               <label for="symbols">Include Symbols</label>
             </div>
             <div class="password-strength">
@@ -104,15 +112,15 @@
               <div class="strength-col2">
                 <span>Medium</span>
                 <div class="strength-bars">
-                  <div class="strength-bar"></div>
-                  <div class="strength-bar"></div>
-                  <div class="strength-bar"></div>
-                  <div class="strength-bar"></div>
+                  <div class="strength-bar strength-medium" id="strength-bar1"></div>
+                  <div class="strength-bar strength-medium" id="strength-bar2"></div>
+                  <div class="strength-bar strength-medium" id="strength-bar3"></div>
+                  <div class="strength-bar" id="strength-bar4"></div>
                 </div>
               </div>
             </div>
-            <button class="btn-primary">Generate</button>
-          </form>
+            <button id="generateButton" class="btn-primary">Generate</button>
+          </div>
         </div>
       </section>
     </main>
