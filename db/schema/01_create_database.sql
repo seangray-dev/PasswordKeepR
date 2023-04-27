@@ -2,9 +2,11 @@ CREATE DATABASE passwordkeepr;
 
 \c passwordkeepr;
 
-CREATE TABLE categories (
+CREATE TABLE users (
   id SERIAL PRIMARY KEY,
-  name VARCHAR(255) NOT NULL
+  email VARCHAR(255) NOT NULL UNIQUE,
+  password VARCHAR(255) NOT NULL,
+  is_admin BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE organizations (
@@ -13,12 +15,12 @@ CREATE TABLE organizations (
   name VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE users (
+ALTER TABLE users
+ADD COLUMN organization_id INTEGER REFERENCES organizations(id);
+
+CREATE TABLE categories (
   id SERIAL PRIMARY KEY,
-  organization_id INTEGER REFERENCES organizations(id),
-  email VARCHAR(255) NOT NULL UNIQUE,
-  password VARCHAR(255) NOT NULL,
-  is_admin BOOLEAN DEFAULT FALSE
+  name VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE websites (
