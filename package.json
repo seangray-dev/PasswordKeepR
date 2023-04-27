@@ -7,7 +7,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "local": "./node_modules/.bin/nodemon -L --ignore public/",
-    "db:reset": "node bin/resetdb.js"
+    "db:create": "psql -f ./db/schema/01_create_database.sql",
+    "db:reset": "node bin/resetdb.js",
+    "db:create_seeds": "node bin/seeddb.js",
+    "db:show_data": "node bin/show_data.js"
   },
   "author": "Lighthouse Labs",
   "license": "ISC",
