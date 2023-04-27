@@ -646,6 +646,18 @@
   margin-bottom: 2rem;
 }
 
+.form-group-password {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.generator-link {
+  position: absolute;
+  top: 20px;
+  right: 0;
+}
+
 .modal-form-buttons {
   margin-top: 1rem;
   display: flex;
