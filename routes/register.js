@@ -2,7 +2,12 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const router = express.Router();
-const { createUser } = require("../db/queries/users");
+const {
+  createUser,
+  getOrganizationByName,
+  createOrganization,
+  getUserByEmail
+} = require("../db/queries/users");
 
 router.get("/", (req, res) => {
   res.render("register");
@@ -11,15 +16,32 @@ router.get("/", (req, res) => {
 router.post("/", async (req, res) => {
   try {
     const { email, password, password_confirm, organization } = req.body;
-    if (password !== password_confirm) {
-      return res.status(400).send("Passwords do not match.");
+
+    const existingUser = await getUserByEmail(email);
+    if (existingUser) {
+      return res.status(400).send("User with this email already exists.");
     }
+
+    let org_id = null;
+    let is_admin = false;
+
+    if (organization) {
+      const existingOrg = await getOrganizationByName(organization);
+      if (existingOrg) {
+        org_id = existingOrg.id;
+      } else {
+        const newOrg = await createOrganization(organization);
+        org_id = newOrg.id;
+        is_admin = true;
+      }
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = {
-      organization_id: null, // Update this based on your logic for organization_id
+      organization_id: org_id,
       email,
       password: hashedPassword,
-      is_admin: false, // Update this based on your logic for is_admin
+      is_admin: is_admin,
     };
     await createUser(newUser);
     res.redirect("/login");

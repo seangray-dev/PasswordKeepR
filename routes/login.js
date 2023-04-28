@@ -11,16 +11,15 @@ router.get("/", (req, res) => {
 router.post("/", async (req, res) => {
   try {
     const { email, password } = req.body;
-    const userResult = await getUserByEmail(email);
-    if (userResult.rowCount === 0) {
+    const user = await getUserByEmail(email);
+    if (!user) {
       return res.status(401).send("Invalid email or password.");
     }
-    const user = userResult.rows[0];
     const isValidPassword = await bcrypt.compare(password, user.password);
     if (!isValidPassword) {
       return res.status(401).send("Invalid email or password.");
     }
-    // Handle session and redirect to the dashboard or other protected routes
+    
     res.redirect("/dashboard");
   } catch (error) {
     console.error(error);
