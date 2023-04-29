@@ -9,7 +9,6 @@ const getUserPasswordsWithEmail = (email) => {
     JOIN websites ON websites.id = user_passwords.website_id
     JOIN categories ON categories.id = websites.category_id
     WHERE users.email = $1
-    ORDER BY catergories.name
     `, [email])
     .then(result => result.rows);
   };
@@ -37,6 +36,5 @@ const getOrganizationNameWithEmail = (email) => {
     `, [email])
     .then(result => result.rows[0]);
   };
-
 
 module.exports = { getUserPasswordsWithEmail, getOrganizationPasswordsWithEmail, getOrganizationNameWithEmail };
