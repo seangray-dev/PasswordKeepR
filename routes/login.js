@@ -18,15 +18,15 @@ router.post("/", async (req, res) => {
 
     // Check if the user exists and if the password is valid
     if (!user) {
-      return res.status(401).send("Invalid email or password.");
+      return res.status(401).json({ message: "Email does not exist" });
     }
     const isValidPassword = await bcrypt.compare(password, user.password);
     if (!isValidPassword) {
-      return res.status(401).send("Invalid email or password.");
+      return res.status(401).json({ message: "Invalid email or password." });
     }
-    
-    // Redirect to the dashboard
-    res.redirect("/dashboard");
+
+    res.status(200).json({ message: "Login successful." });
+
   } catch (error) {
     console.error(error);
     res.status(500).send("Error occurred during login.");

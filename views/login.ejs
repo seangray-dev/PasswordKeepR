@@ -1,64 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <title>PasswordKeepR | Login</title>
 
-<head>
-  <title>PasswordKeepR | Login</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" />
+    <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="stylesheet" href="/styles/layout.css" />
 
-  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
-  <link rel="stylesheet" href="/vendor/border-box.css" />
-  <link rel="stylesheet" href="/styles/main.css" />
-  <link rel="stylesheet" href="/styles/layout.css" />
+    <!-- fonts -->
 
-  <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Manrope:wght@300;400;700;800&display=swap"
+      rel="stylesheet"
+    />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Manrope:wght@300;400;700;800&display=swap"
-    rel="stylesheet" />
+    <!-- font-awesome-icons -->
+    <script
+      src="https://kit.fontawesome.com/be692c047d.js"
+      crossorigin="anonymous"
+    ></script>
 
-  <!-- font-awesome-icons -->
-  <script src="https://kit.fontawesome.com/be692c047d.js" crossorigin="anonymous"></script>
+    <script src="/vendor/jquery-3.0.0.js"></script>
+    <script defer src="/scripts/app.js"></script>
+    <script defer src="/scripts/login-form.js"></script>
+  </head>
 
-  <script src="/vendor/jquery-3.0.0.js"></script>
-  <script defer src="/scripts/app.js"></script>
-</head>
-
-<body class="register-login-body">
-  <nav class="nav">
-    <div class="nav__container container">
-      <a href="/" class="nav__logo">
-        Password<span class="nav__logo-light">KeepR</span>
-      </a>
-      <a href="/login"><button class="btn-secondary">Login</button></a>
-    </div>
-  </nav>
-  <section class="register-login container">
-    <h1 class="register-login__title header__title-underline">Login</h1>
-    <form class="register-login__form" action="/login" method="post">
-      <div class="register-login__form-div">
-        <label class="register-login__form-label" for="email">Email:</label>
-        <input class="register-login__form-input" type="email" id="email" name="email" required />
+  <body class="register-login-body">
+    <nav class="nav">
+      <div class="nav__container container">
+        <a href="/" class="nav__logo">
+          Password<span class="nav__logo-light">KeepR</span>
+        </a>
+        <a href="/login"><button class="btn-secondary">Login</button></a>
       </div>
-      <div class="register-login__form-div">
-        <label class="register-login__form-label" for="password">Password:</label>
-        <input class="register-login__form-input" type="password" id="password" name="password" required />
-      </div>
-      <div class="register-login__form-div">
-        <button class="btn-primary submit" type="submit">Submit</button>
-      </div>
-      <div class="register-login__form-link">
-        <p>Don't have an account?</p>
-        <span><a href="/register"><button type="button" class="btn-secondary">
-              Register Here
-            </button></a></span>
-      </div>
-    </form>
-  </section>
-</body>
-
+    </nav>
+    <section class="register-login container">
+      <h1 class="register-login__title header__title-underline">Login</h1>
+      <form class="register-login__form" action="/login" method="post">
+        <div class="register-login__form-div">
+          <label class="register-login__form-label" for="email">Email:</label>
+          <input
+            class="register-login__form-input"
+            type="email"
+            id="email"
+            name="email"
+            required
+          />
+        </div>
+        <div class="register-login__form-div">
+          <label class="register-login__form-label" for="password"
+            >Password:</label
+          >
+          <input
+            class="register-login__form-input"
+            type="password"
+            id="password"
+            name="password"
+            required
+          />
+        </div>
+        <div class="register-login__form-div">
+          <p class="error-message-login"></p>
+          <p class="success"></p>
+          <button class="btn-primary submit" type="submit">Submit</button>
+        </div>
+        <div class="register-login__form-link">
+          <p>Don't have an account?</p>
+          <span
+            ><a href="/register"
+              ><button type="button" class="btn-secondary">
+                Register Here
+              </button></a
+            ></span
+          >
+        </div>
+      </form>
+    </section>
+  </body>
 </html>
