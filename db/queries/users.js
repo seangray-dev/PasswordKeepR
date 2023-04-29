@@ -1,12 +1,13 @@
-// db/queries/users.js
 const db = require("../connection");
 
+// Retrieve users
 const getUsers = () => {
   return db.query("SELECT * FROM users;").then((data) => {
     return data.rows;
   });
 };
 
+// Create a new user
 const createUser = (user) => {
   const { organization_id, email, password, is_admin } = user;
   const query = `
@@ -17,6 +18,7 @@ const createUser = (user) => {
   return db.query(query, [organization_id, email, password, is_admin]).then((res) => res.rows[0]);
 };
 
+// Retrieve a user by email
 const getUserByEmail = (email) => {
   return db.query('SELECT * FROM users WHERE email = $1;', [email])
     .then(data => {
@@ -28,6 +30,7 @@ const getUserByEmail = (email) => {
     });
 };
 
+// Update the admin of an organization
 const updateAdmin = async (user_id, organization_id) => {
   try {
     const result = await db.query(

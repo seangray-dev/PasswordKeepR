@@ -1,6 +1,6 @@
-// db/queries/organizations.js
 const db = require("../connection");
 
+// Retrieve an organization by name
 const getOrganizationByName = async (name) => {
   const query = {
     text: "SELECT * FROM organizations WHERE name = $1;",
@@ -11,6 +11,7 @@ const getOrganizationByName = async (name) => {
   return result.rows[0];
 };
 
+// Create a new organization
 const createOrganization = async (name, adminId) => {
   const query = {
     text: "INSERT INTO organizations (name, admin_id) VALUES ($1, $2) RETURNING *;",
