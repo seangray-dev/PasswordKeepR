@@ -2,13 +2,8 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const router = express.Router();
-const {
-  createUser,
-  getOrganizationByName,
-  createOrganization,
-  getUserByEmail,
-  updateAdmin
-} = require("../db/queries/users");
+const { createUser, getUserByEmail } = require("../db/queries/users");
+const { getOrganizationByName, createOrganization } = require("../db/queries/organizations");
 
 router.get("/", (req, res) => {
   res.render("register");
