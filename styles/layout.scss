@@ -147,3 +147,9 @@ input[range]::-webkit-slider-thumb {
   bottom: -20px;
   display: none;
 }
+
+.error-message-login {
+  color: var(--color-error);
+  margin-inline: auto;
+  display: none;
+}
