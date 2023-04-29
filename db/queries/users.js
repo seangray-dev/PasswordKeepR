@@ -28,19 +28,17 @@ const getUserByEmail = (email) => {
     });
 };
 
-const getOrganizationByName = (name) => {
-  const query = "SELECT * FROM organizations WHERE name = $1;";
-  return db.query(query, [name]).then((res) => res.rows[0]);
+const updateAdmin = async (user_id, organization_id) => {
+  try {
+    const result = await db.query(
+      "UPDATE organizations SET admin_id = $1 WHERE id = $2",
+      [user_id, organization_id]
+    );
+    return result.rowCount === 1;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 };
 
-const createOrganization = (name) => {
-  const query = "INSERT INTO organizations (name) VALUES ($1) RETURNING *;";
-  return db.query(query, [name]).then((res) => res.rows[0]);
-};
-
-const updateAdmin = (organization_id, admin_id) => {
-  const query = "UPDATE organizations SET admin_id = $1 WHERE id = $2;";
-  return db.query(query, [admin_id, organization_id]);
-};
-
-module.exports = { getUsers, createUser, getUserByEmail, getOrganizationByName, createOrganization, updateAdmin };
+module.exports = { getUsers, createUser, getUserByEmail, updateAdmin};

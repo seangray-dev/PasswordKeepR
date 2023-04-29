@@ -1,5 +1,5 @@
 // db/queries/organizations.js
-const db = require("../config/db");
+const db = require("../connection");
 
 const getOrganizationByName = async (name) => {
   const query = {

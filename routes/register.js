@@ -2,8 +2,15 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const router = express.Router();
-const { createUser, getUserByEmail } = require("../db/queries/users");
-const { getOrganizationByName, createOrganization } = require("../db/queries/organizations");
+const {
+  createUser,
+  getUserByEmail,
+  updateAdmin,
+} = require("../db/queries/users");
+const {
+  getOrganizationByName,
+  createOrganization,
+} = require("../db/queries/organizations");
 
 router.get("/", (req, res) => {
   res.render("register");
@@ -39,7 +46,12 @@ router.post("/", async (req, res) => {
       password: hashedPassword,
       is_admin: is_admin,
     };
-    await createUser(newUser);
+    const createdUser = await createUser(newUser);
+
+    if (is_admin) {
+      await updateAdmin(createdUser.id, org_id);
+    }
+
     res.redirect("/login");
   } catch (error) {
     console.error(error);
