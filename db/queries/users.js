@@ -38,4 +38,9 @@ const createOrganization = (name) => {
   return db.query(query, [name]).then((res) => res.rows[0]);
 };
 
-module.exports = { getUsers, createUser, getUserByEmail, getOrganizationByName, createOrganization };
+const updateAdmin = (organization_id, admin_id) => {
+  const query = "UPDATE organizations SET admin_id = $1 WHERE id = $2;";
+  return db.query(query, [admin_id, organization_id]);
+};
+
+module.exports = { getUsers, createUser, getUserByEmail, getOrganizationByName, createOrganization, updateAdmin };

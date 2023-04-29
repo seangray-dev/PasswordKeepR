@@ -6,7 +6,8 @@ const {
   createUser,
   getOrganizationByName,
   createOrganization,
-  getUserByEmail
+  getUserByEmail,
+  updateAdmin
 } = require("../db/queries/users");
 
 router.get("/", (req, res) => {
