@@ -5,7 +5,7 @@ const errorMessage = document.querySelector(".error-message-login");
 const successMessage = document.querySelector(".success");
 
 form.addEventListener("input", () => {
-  errorMessage.getElementsByClassName.display = "none";
+  errorMessage.style.display = "none";
 });
 
 form.addEventListener("submit", async (e) => {
