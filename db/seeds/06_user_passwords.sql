@@ -1,5 +1,5 @@
-INSERT INTO user_passwords (website_id, organization_id, username, password)
+INSERT INTO user_passwords (user_id, website_id, username, password)
 VALUES (1, 1, 'user1_compass', 'user1compasspass'),
-       (2, 1, 'user1_fb', 'user1facebookpass'),
-       (3, 1, 'user1_slack', 'user1slack'),
-       (4, 1, 'user1_netlfix', 'user1netflix');
+       (1, 2, 'user1_fb', 'user1facebookpass'),
+       (1, 3, 'user1_slack', 'user1slack'),
+       (1, 4, 'user1_netflix', 'user1netflix');

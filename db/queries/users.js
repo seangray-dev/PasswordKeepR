@@ -1,12 +1,13 @@
-// db/queries/users.js
 const db = require("../connection");
 
+// Retrieve users
 const getUsers = () => {
   return db.query("SELECT * FROM users;").then((data) => {
     return data.rows;
   });
 };
 
+// Create a new user
 const createUser = (user) => {
   const { organization_id, email, password, is_admin } = user;
   const query = `
@@ -17,6 +18,7 @@ const createUser = (user) => {
   return db.query(query, [organization_id, email, password, is_admin]).then((res) => res.rows[0]);
 };
 
+// Retrieve a user by email
 const getUserByEmail = (email) => {
   return db.query('SELECT * FROM users WHERE email = $1;', [email])
     .then(data => {
@@ -28,14 +30,18 @@ const getUserByEmail = (email) => {
     });
 };
 
-const getOrganizationByName = (name) => {
-  const query = "SELECT * FROM organizations WHERE name = $1;";
-  return db.query(query, [name]).then((res) => res.rows[0]);
+// Update the admin of an organization
+const updateAdmin = async (user_id, organization_id) => {
+  try {
+    const result = await db.query(
+      "UPDATE organizations SET admin_id = $1 WHERE id = $2",
+      [user_id, organization_id]
+    );
+    return result.rowCount === 1;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 };
 
-const createOrganization = (name) => {
-  const query = "INSERT INTO organizations (name) VALUES ($1) RETURNING *;";
-  return db.query(query, [name]).then((res) => res.rows[0]);
-};
-
-module.exports = { getUsers, createUser, getUserByEmail, getOrganizationByName, createOrganization };
+module.exports = { getUsers, createUser, getUserByEmail, updateAdmin};

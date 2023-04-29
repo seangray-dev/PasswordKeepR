@@ -1,22 +1,28 @@
-// routes/register.js
 const express = require("express");
 const bcrypt = require("bcrypt");
 const router = express.Router();
 const {
   createUser,
+  getUserByEmail,
+  updateAdmin,
+} = require("../db/queries/users");
+const {
   getOrganizationByName,
   createOrganization,
-  getUserByEmail,
-} = require("../db/queries/users");
+} = require("../db/queries/organizations");
 
+
+// Render the register page
 router.get("/", (req, res) => {
   res.render("register");
 });
 
+// User registration
 router.post("/", async (req, res) => {
   try {
     const { email, password, password_confirm, organization } = req.body;
 
+    // Check if user already exists
     const existingUser = await getUserByEmail(email);
 
     if (existingUser) {
@@ -32,6 +38,7 @@ router.post("/", async (req, res) => {
     let org_id = null;
     let is_admin = false;
 
+    // Handle organization logic
     if (organization) {
       const existingOrg = await getOrganizationByName(organization);
       if (existingOrg) {
@@ -43,7 +50,10 @@ router.post("/", async (req, res) => {
       }
     }
 
+    // Hash the user's password
     const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create the new user
     const newUser = {
       organization_id: org_id,
       email,
@@ -53,6 +63,15 @@ router.post("/", async (req, res) => {
 
     await createUser(newUser);
     res.status(201).json({ message: "User registered successfully." });
+
+    const createdUser = await createUser(newUser);
+
+    // Update the organization's admin if true
+    if (is_admin) {
+      await updateAdmin(createdUser.id, org_id);
+    }
+
+
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error occurred during registration." });

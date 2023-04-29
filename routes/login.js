@@ -1,17 +1,22 @@
-// routes/login.js
 const express = require("express");
 const bcrypt = require("bcrypt");
 const router = express.Router();
 const { getUserByEmail } = require("../db/queries/users");
 
+// Render the login page
 router.get("/", (req, res) => {
   res.render("login");
 });
 
+// User login
 router.post("/", async (req, res) => {
   try {
     const { email, password } = req.body;
+
+    // Retrieve the user from the database
     const user = await getUserByEmail(email);
+
+    // Check if the user exists and if the password is valid
     if (!user) {
       return res.status(401).send("Invalid email or password.");
     }
@@ -20,6 +25,7 @@ router.post("/", async (req, res) => {
       return res.status(401).send("Invalid email or password.");
     }
     
+    // Redirect to the dashboard
     res.redirect("/dashboard");
   } catch (error) {
     console.error(error);
