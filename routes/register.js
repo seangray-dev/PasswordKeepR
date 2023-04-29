@@ -1,22 +1,27 @@
-// routes/register.js
 const express = require("express");
 const bcrypt = require("bcrypt");
 const router = express.Router();
 const {
   createUser,
+  getUserByEmail,
+  updateAdmin,
+} = require("../db/queries/users");
+const {
   getOrganizationByName,
   createOrganization,
-  getUserByEmail
-} = require("../db/queries/users");
+} = require("../db/queries/organizations");
 
+// Render the register page
 router.get("/", (req, res) => {
   res.render("register");
 });
 
+// User registration
 router.post("/", async (req, res) => {
   try {
     const { email, password, password_confirm, organization } = req.body;
 
+    // Check if user already exists
     const existingUser = await getUserByEmail(email);
     if (existingUser) {
       return res.status(400).send("User with this email already exists.");
@@ -25,6 +30,7 @@ router.post("/", async (req, res) => {
     let org_id = null;
     let is_admin = false;
 
+    // Handle organization logic
     if (organization) {
       const existingOrg = await getOrganizationByName(organization);
       if (existingOrg) {
@@ -36,14 +42,24 @@ router.post("/", async (req, res) => {
       }
     }
 
+    // Hash the user's password
     const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create the new user
     const newUser = {
       organization_id: org_id,
       email,
       password: hashedPassword,
       is_admin: is_admin,
     };
-    await createUser(newUser);
+    const createdUser = await createUser(newUser);
+
+    // Update the organization's admin if true
+    if (is_admin) {
+      await updateAdmin(createdUser.id, org_id);
+    }
+
+    // Redirect to the login page
     res.redirect("/login");
   } catch (error) {
     console.error(error);

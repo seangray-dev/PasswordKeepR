@@ -1,3 +1,3 @@
-INSERT INTO organizations (name)
-VALUES ('LightHouse Labs'),
-       ('PasswordKeepr');
+INSERT INTO organizations (name, admin_id)
+VALUES ('LightHouse Labs', NULL),
+       ('PasswordKeepr', NULL);
