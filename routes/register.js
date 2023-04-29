@@ -11,6 +11,7 @@ const {
   createOrganization,
 } = require("../db/queries/organizations");
 
+
 // Render the register page
 router.get("/", (req, res) => {
   res.render("register");
@@ -23,8 +24,15 @@ router.post("/", async (req, res) => {
 
     // Check if user already exists
     const existingUser = await getUserByEmail(email);
+
     if (existingUser) {
-      return res.status(400).send("User with this email already exists.");
+      return res.status(400).json({ message: "Email already exists." });
+    }
+
+    if (!password || !password_confirm) {
+      return res
+        .status(400)
+        .json({ message: "Password and password confirmation are required." });
     }
 
     let org_id = null;
@@ -52,6 +60,10 @@ router.post("/", async (req, res) => {
       password: hashedPassword,
       is_admin: is_admin,
     };
+
+    await createUser(newUser);
+    res.status(201).json({ message: "User registered successfully." });
+
     const createdUser = await createUser(newUser);
 
     // Update the organization's admin if true
@@ -59,11 +71,10 @@ router.post("/", async (req, res) => {
       await updateAdmin(createdUser.id, org_id);
     }
 
-    // Redirect to the login page
-    res.redirect("/login");
+
   } catch (error) {
     console.error(error);
-    res.status(500).send("Error occurred during registration.");
+    res.status(500).json({ message: "Error occurred during registration." });
   }
 });
 

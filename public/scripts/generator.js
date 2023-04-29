@@ -97,7 +97,7 @@ generateButton.addEventListener("click", () => {
     !includeSymbol.checked
   ) {
     generatedPassword.innerHTML = errorMessage;
-    generatedPassword.classList.add("error-message");
+    generatedPassword.classList.add("error-message-generator");
   } else {
     let randomPassword = generateRandomPassword(
       characterLengthInput.value,
@@ -107,7 +107,7 @@ generateButton.addEventListener("click", () => {
       includeSymbol.checked
     );
     generatedPassword.innerHTML = randomPassword;
-    generatedPassword.classList.remove("error-message");
+    generatedPassword.classList.remove("error-message-generator");
   }
 });
 
