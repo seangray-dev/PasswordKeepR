@@ -6,7 +6,7 @@ const {
   createUser,
   getOrganizationByName,
   createOrganization,
-  getUserByEmail
+  getUserByEmail,
 } = require("../db/queries/users");
 
 router.get("/", (req, res) => {
@@ -18,8 +18,15 @@ router.post("/", async (req, res) => {
     const { email, password, password_confirm, organization } = req.body;
 
     const existingUser = await getUserByEmail(email);
+
     if (existingUser) {
-      return res.status(400).send("User with this email already exists.");
+      return res.status(400).json({ message: "Email already exists." });
+    }
+
+    if (!password || !password_confirm) {
+      return res
+        .status(400)
+        .json({ message: "Password and password confirmation are required." });
     }
 
     let org_id = null;
@@ -43,11 +50,12 @@ router.post("/", async (req, res) => {
       password: hashedPassword,
       is_admin: is_admin,
     };
+
     await createUser(newUser);
-    res.redirect("/login");
+    res.status(201).json({ message: "User registered successfully." });
   } catch (error) {
     console.error(error);
-    res.status(500).send("Error occurred during registration.");
+    res.status(500).json({ message: "Error occurred during registration." });
   }
 });
 
