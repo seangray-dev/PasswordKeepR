@@ -1,7 +1,13 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const router = express.Router();
+const cookieSession = require("cookie-session");
 const { getUserByEmail } = require("../db/queries/users");
+
+router.use(cookieSession({
+  name: "session",
+  keys: ["some-long-secret-key1", "some-long-secret-key2"],
+}));
 
 // Render the login page
 router.get("/", (req, res) => {
@@ -24,6 +30,9 @@ router.post("/", async (req, res) => {
     if (!isValidPassword) {
       return res.status(401).json({ message: "Invalid email or password." });
     }
+
+    // If both checks pass, set "userId" cookie
+    req.session.userId = user.id;
 
     res.status(200).json({ message: "Login successful." });
 
