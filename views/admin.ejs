@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>PasswordKeepR | Dashboard</title>
+    <title>PasswordKeepR | Admin</title>
 
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -28,7 +28,7 @@
     ></script>
 
     <script src="/vendor/jquery-3.0.0.js"></script>
-    <script defer src="/scripts/dashboard.js"></script>
+    <script defer src="/scripts/admin.js"></script>
   </head>
 
   <body class="dashboard">
@@ -38,19 +38,14 @@
           Password<span class="nav__logo-light">KeepR</span>
         </a>
         <!-- handle logout feature -->
-        <div class="nav-links">
-          <a href="/admin"
-            ><button class="btn-secondary">Admin page</button></a
-          >
-          <a href="/"><button class="btn-secondary">Logout</button></a>
-        </div>
+        <a href="/"><button class="btn-secondary">Logout</button></a>
       </div>
     </nav>
     <main class="container">
-      <h1 class="dashboard__title">Dashboard</h1>
+      <h1 class="dashboard__title">Admin</h1>
       <section class="dashboard__passwords">
         <header class="dashboard__passwords-header">
-          <h2 class="dashboard__heading">Passwords</h2>
+          <h2 class="dashboard__heading">Organization Passwords</h2>
           <div>
             <!-- add filter functionality here -->
             <button class="dashboard__passwords-add btn-primary">
@@ -59,27 +54,21 @@
           </div>
         </header>
         <!-- display organization passwords -->
-        <% if (organizationPasswords.length > 0) { %>
+
         <div class="dashboard__passwords-category">
-          <h3 class="dashboard__heading-category">
-            <%= organizationName.name %> Passwords
-          </h3>
+          <h3 class="dashboard__heading-category"></h3>
           <ul class="dashboard__passwords-cards">
-            <% organizationPasswords.forEach((each) => { %>
             <li class="dashboard__passwords-card">
               <div class="dashboard__passwords-card-row-1">
-                <span class="dashboard__passwords-username"
-                  ><%= each.username %></span
-                >
+                <span class="dashboard__passwords-username"></span>
                 <a
-                  href="<%= each.website %>"
+                  href=""
                   target="_blank"
                   class="dashboard__passwords-website"
-                  ><%= each.website %></a
-                >
+                ></a>
               </div>
               <div class="dashboard__passwords-card-row-2">
-                <span class="hidden-password hidden"><%= each.password %></span>
+                <span class="hidden-password hidden"></span>
                 <span class="show-password">******</span>
                 <div class="dashboard__passwords-buttons">
                   <button class="show-password-btn">
@@ -99,33 +88,25 @@
                 </div>
               </div>
             </li>
-            <% }); %>
           </ul>
         </div>
-        <% }; %>
+
         <!-- display user passwords by category -->
-        <% if (groupedUserPasswords.length > 0) { %> <%
-        groupedUserPasswords.forEach((each) => { %>
+
         <div class="dashboard__passwords-category">
-          <h3 class="dashboard__heading-category"><%= each.category %></h3>
+          <h3 class="dashboard__heading-category"></h3>
           <ul class="dashboard__passwords-cards">
-            <% each.passwords.forEach((eachPassword) => { %>
             <li class="dashboard__passwords-card">
               <div class="dashboard__passwords-card-row-1">
-                <span class="dashboard__passwords-username"
-                  ><%= eachPassword.username %></span
-                >
+                <span class="dashboard__passwords-username"></span>
                 <a
-                  href="<%= eachPassword.website %>"
+                  href=""
                   target="_blank"
                   class="dashboard__passwords-website"
-                  ><%= eachPassword.website %></a
-                >
+                ></a>
               </div>
               <div class="dashboard__passwords-card-row-2">
-                <span class="hidden-password hidden"
-                  ><%= eachPassword.password %></span
-                >
+                <span class="hidden-password hidden"></span>
                 <span class="show-password">******</span>
                 <div class="dashboard__passwords-buttons">
                   <button class="show-password-btn">
@@ -145,10 +126,44 @@
                 </div>
               </div>
             </li>
-            <% }); %>
           </ul>
         </div>
-        <% }); %> <% }; %>
+      </section>
+
+      <section class="dashboard__passwords">
+        <header class="dashboard__passwords-header">
+          <h2 class="dashboard__heading">Users</h2>
+        </header>
+        <!-- display organization passwords -->
+
+        <div class="dashboard__passwords-category">
+          <h3 class="dashboard__heading-category"></h3>
+          <ul class="dashboard__passwords-cards">
+            <li class="dashboard__passwords-card">
+              <div class="dashboard__passwords-card-row-1">
+                <span class="dashboard__passwords-username">Username01</span>
+              </div>
+              <div class="dashboard__passwords-card-row-2">
+                <span class="hidden-password hidden">password</span>
+                <span class="show-password">******</span>
+                <div class="dashboard__passwords-buttons">
+                  <button class="show-password-btn">
+                    <i class="fa-solid fa-eye eye-show fa-lg"></i>
+                    <i class="fa-solid fa-eye-slash fa-lg eye-hide hidden"></i>
+                  </button>
+                  <button class="edit-password">
+                    <i class="fa-solid fa-pencil fa-lg"></i>
+                  </button>
+                  <button class="delete-password">
+                    <i class="fa-solid fa-trash fa-lg"></i>
+                  </button>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- display user passwords by category -->
       </section>
 
       <!-- Edit Password Modal -->
@@ -220,15 +235,6 @@
                   >Generate</a
                 >
               </div>
-              <!-- If user wants to add new category, and selects add new it should add it as an option to the select input -->
-              <label for="category">Category:</label>
-              <select id="category" name="category" required>
-                <option value="" disabled selected>Select a category</option>
-                <option value="add new">Add New</option>
-                <option value="social">Social</option>
-                <option value="work">Work</option>
-                <option value="entertainment">Entertainment</option>
-              </select>
             </div>
             <div class="modal-form-buttons">
               <div>
