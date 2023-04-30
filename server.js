@@ -34,6 +34,7 @@ const registerRoutes = require("./routes/register");
 const loginRoutes = require("./routes/login");
 const dashboardRoutes = require("./routes/dashboard");
 const generatorRoutes = require("./routes/generator");
+const adminRoutes = require("./routes/admin");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -42,6 +43,7 @@ app.use("/register", registerRoutes);
 app.use("/login", loginRoutes);
 app.use("/dashboard", dashboardRoutes);
 app.use("/generator", generatorRoutes);
+app.use("/admin", adminRoutes);
 
 // Note: mount other resources here, using the same pattern above
 
