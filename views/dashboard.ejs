@@ -207,7 +207,7 @@
       <div class="modal" id="newPasswordModal">
         <div class="modal-content">
           <h2 class="modal-title">New Password</h2>
-          <form class="modal-form">
+          <form class="modal-form" action="/dashboard/newpassword" method="POST">
             <div class="form-group">
               <label for="username">Username:</label>
               <input type="text" id="username" name="username" required />
@@ -225,9 +225,9 @@
               <select id="category" name="category" required>
                 <option value="" disabled selected>Select a category</option>
                 <option value="add new">Add New</option>
-                <option value="social">Social</option>
-                <option value="work">Work</option>
-                <option value="entertainment">Entertainment</option>
+                <option value="Social">Social</option>
+                <option value="Work">Work</option>
+                <option value="Entertainment">Entertainment</option>
               </select>
             </div>
             <div class="modal-form-buttons">
