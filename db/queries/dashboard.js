@@ -48,4 +48,28 @@ const getOrganizationNameById = (id) => {
     .then(result => result.rows[0]);
   };
 
-module.exports = { getUserById, getUserPasswordsById, getOrganizationPasswordsById, getOrganizationNameById };
+  const createNewPassword = async (userId, userName, website, password, category) => {
+    //Find category id by category name
+    const categoryId = await db.query(`
+       SELECT id
+       FROM categories
+       WHERE name = $1
+       `, [category])
+      .then(result => result.rows[0].id);
+
+    //Add website, then find website id
+    const websiteId = await db.query(`
+      INSERT INTO websites (name, category_id) VALUES ($1, $2)
+      RETURNING *;
+      `, [website, categoryId])
+      .then(result => result.rows[0].id);
+
+    //Add new password
+    return db
+      .query(`
+      INSERT INTO user_passwords (user_id, website_id, username, password)
+      VALUES ($1, $2, $3, $4)
+      `, [userId, websiteId,userName, password]);
+  };
+
+module.exports = { getUserById, getUserPasswordsById, getOrganizationPasswordsById, getOrganizationNameById, createNewPassword };

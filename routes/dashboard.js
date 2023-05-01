@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const cookieSession = require("cookie-session");
-const { getUserById, getUserPasswordsById, getOrganizationPasswordsById, getOrganizationNameById } = require("../db/queries/dashboard");
+const { getUserById, getUserPasswordsById, getOrganizationPasswordsById, getOrganizationNameById, createNewPassword } = require("../db/queries/dashboard");
 
 router.use(cookieSession({
   name: "session",
@@ -9,7 +9,7 @@ router.use(cookieSession({
 }));
 
 router.get("/", async (req, res) => {
-  if (!getUserById(req.session.userId)) {
+  if (!(await getUserById(req.session.userId))) {
     return res.send("Please login to view your Dashboard!");
   };
 
@@ -31,6 +31,22 @@ router.get("/", async (req, res) => {
 
   const passwordData = {groupedUserPasswords: groupedUserPasswords, organizationPasswords: organizationPasswords, organizationName: organizationName}
   res.render("dashboard", passwordData);
+});
+
+router.post("/newpassword", async (req, res) => {
+  if (!(await getUserById(req.session.userId))) {
+    return res.send("Please login to add new password!");
+  };
+
+  //Add new password to DB
+  const userId = req.session.userId;
+  const userName = req.body.username;
+  const website = req.body.website;
+  const password = req.body.password;
+  const category = req.body.category;
+  await createNewPassword(userId, userName, website, password, category);
+
+  res.redirect("/dashboard");
 });
 
 module.exports = router;
