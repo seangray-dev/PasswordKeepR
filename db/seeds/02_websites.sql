@@ -1,5 +1,5 @@
 INSERT INTO websites (name, category_id)
-VALUES ('Compass', 1),
-       ('Facebook', 2),
-       ('Slack', 3),
-       ('Netflix', 4);
+VALUES ('Compass', 2),
+       ('Facebook', 1),
+       ('Slack', 2),
+       ('Netflix', 3);

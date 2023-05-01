@@ -1,5 +1,4 @@
 INSERT INTO categories (name)
-VALUES ('Organization'),
-       ('Social'),
+VALUES ('Social'),
        ('Work'),
        ('Entertainment');
