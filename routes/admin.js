@@ -19,13 +19,11 @@ router.get("/", (req, res) => {
     const isAdmin = result.rows[0].is_admin;
 
     if (!isAdmin) {
-      return res.status(403).render("error", {
-        message: "Access denied. You do not have admin privileges.",
-      });
+      return res.redirect("/dashboard");
     }
 
-    // Render admin page
-    res.render("admin");
+    // Render admin page with isAdmin variable
+    res.render("admin", { isAdmin });
   });
 });
 

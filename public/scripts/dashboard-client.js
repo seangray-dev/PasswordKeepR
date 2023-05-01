@@ -139,7 +139,7 @@ window.addEventListener("click", (event) => {
   }
 });
 
-// Add new password - (only hides and shows modal currently)
+// Add new password
 const addPasswordButton = document.querySelector(".dashboard__passwords-add");
 const newPasswordModal = document.getElementById("newPasswordModal");
 const cancelNewPasswordButton = newPasswordModal.querySelector(
@@ -160,5 +160,61 @@ addPasswordButton.addEventListener("click", () => {
 window.addEventListener("click", (event) => {
   if (event.target === newPasswordModal) {
     hideModalWithFadeOut(newPasswordModal);
+  }
+});
+
+const categorySelect = document.getElementById("category");
+const newCategoryInput = document.getElementById("newCategoryInput");
+const modalForm = document.querySelector(".modal-form");
+
+// Show or hide the newCategoryInput based on the selected option
+categorySelect.addEventListener("change", function () {
+  if (this.value === "add new") {
+    newCategoryInput.classList.remove("hidden");
+  } else {
+    newCategoryInput.classList.add("hidden");
+  }
+});
+
+// Add a new category to the select input after the form is submitted
+modalForm.addEventListener("submit", async function (event) {
+  // Prevent default form submission
+  event.preventDefault();
+
+  // If a new category was added, append it to the select input
+  if (categorySelect.value === "add new") {
+    let newCategory = newCategoryInput.value;
+    let newOption = document.createElement("option");
+    newOption.text = newCategory;
+    newOption.value = newCategory;
+
+    // Insert the new option before the 'Add New' option
+    const addNewOption = categorySelect.querySelector(
+      "option[value='add new']"
+    );
+    categorySelect.insertBefore(newOption, addNewOption);
+
+    // Set the new category as the selected option
+    categorySelect.value = newCategory;
+  }
+
+  // Handle form submission using Fetch API
+  const formData = new FormData(modalForm);
+  const data = Object.fromEntries(formData);
+
+  const response = await fetch("/dashboard", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (response.ok) {
+    // Redirect to /dashboard after successful submission
+    window.location.href = "/dashboard";
+  } else {
+    // Handle any error messages here
+    console.error("Failed to submit new password");
   }
 });
