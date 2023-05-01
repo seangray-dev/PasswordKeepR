@@ -28,14 +28,16 @@
   <script defer src="/scripts/admin.js"></script>
 </head>
 
-<body class="dashboard">
+<body>
   <nav class="nav">
     <div class="nav__container container">
       <a href="/" class="nav__logo">
         Password<span class="nav__logo-light">KeepR</span>
       </a>
-      <!-- handle logout feature -->
-      <a href="/"><button class="btn-secondary">Logout</button></a>
+      <div class="nav-links">
+        <a href="/dashboard"><button class="btn-secondary">Dashboard</button></a>
+        <a href="/"><button class="btn-secondary">Logout</button></a>
+      </div>
     </div>
   </nav>
   <main class="container">
