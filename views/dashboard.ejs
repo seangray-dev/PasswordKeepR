@@ -28,7 +28,7 @@
     ></script>
 
     <script src="/vendor/jquery-3.0.0.js"></script>
-    <script defer src="/scripts/dashboard.js"></script>
+    <script defer src="/scripts/dashboard-client.js"></script>
   </head>
 
   <body class="dashboard">
@@ -39,9 +39,7 @@
         </a>
         <!-- handle logout feature -->
         <div class="nav-links">
-          <a href="/admin"
-            ><button class="btn-secondary">Admin page</button></a
-          >
+          <a href="/admin"><button class="btn-secondary">Admin page</button></a>
           <a href="/"><button class="btn-secondary">Logout</button></a>
         </div>
       </div>
@@ -89,12 +87,6 @@
                   <button class="copy-to-clipboard">
                     <i class="fa-solid fa-clipboard fa-lg"></i>
                     <i class="fa-solid fa-check fa-lg hidden"></i>
-                  </button>
-                  <button class="edit-password">
-                    <i class="fa-solid fa-pencil fa-lg"></i>
-                  </button>
-                  <button class="delete-password">
-                    <i class="fa-solid fa-trash fa-lg"></i>
                   </button>
                 </div>
               </div>
@@ -207,7 +199,7 @@
       <div class="modal" id="newPasswordModal">
         <div class="modal-content">
           <h2 class="modal-title">New Password</h2>
-          <form class="modal-form" action="/dashboard/newpassword" method="POST">
+          <form class="modal-form" action="/dashboard" method="POST">
             <div class="form-group">
               <label for="username">Username:</label>
               <input type="text" id="username" name="username" required />
@@ -221,14 +213,22 @@
                 >
               </div>
               <!-- If user wants to add new category, and selects add new it should add it as an option to the select input -->
+
               <label for="category">Category:</label>
               <select id="category" name="category" required>
                 <option value="" disabled selected>Select a category</option>
                 <option value="add new">Add New</option>
-                <option value="Social">Social</option>
-                <option value="Work">Work</option>
+                <option value="social">Social</option>
+                <option value="work">Work</option>
                 <option value="Entertainment">Entertainment</option>
               </select>
+              <input
+                type="text"
+                id="newCategoryInput"
+                name="newCategoryInput"
+                class="hidden"
+                placeholder="Enter new category"
+              />
             </div>
             <div class="modal-form-buttons">
               <div>
