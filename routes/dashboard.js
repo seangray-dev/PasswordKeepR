@@ -9,7 +9,7 @@ router.use(cookieSession({
 }));
 
 router.get("/", async (req, res) => {
-  if (!getUserById(req.session.userId)) {
+  if (!(await getUserById(req.session.userId))) {
     return res.send("Please login to view your Dashboard!");
   };
 
@@ -34,7 +34,7 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/newpassword", async (req, res) => {
-  if (!getUserById(req.session.userId)) {
+  if (!(await getUserById(req.session.userId))) {
     return res.send("Please login to add new password!");
   };
 
