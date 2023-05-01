@@ -1,4 +1,38 @@
 const db = require("../connection");
+const crypto = require("crypto");
+
+const ENCRYPTION_KEY = process.env.CRYPTO_KEY;
+const IV_LENGTH = 16;
+
+const decrypt = (text) => {
+  const textParts = text.split(":");
+  const iv = Buffer.from(textParts.shift(), "hex");
+  const encryptedText = Buffer.from(textParts.join(":"), "hex");
+  const decipher = crypto.createDecipheriv(
+    "aes-256-cbc",
+    Buffer.from(ENCRYPTION_KEY),
+    iv
+  );
+  let decrypted = decipher.update(encryptedText);
+
+  decrypted = Buffer.concat([decrypted, decipher.final()]);
+
+  return decrypted.toString();
+};
+
+const encrypt = (text) => {
+  let iv = crypto.randomBytes(IV_LENGTH);
+  let cipher = crypto.createCipheriv(
+    "aes-256-cbc",
+    Buffer.from(ENCRYPTION_KEY),
+    iv
+  );
+  let encrypted = cipher.update(text);
+
+  encrypted = Buffer.concat([encrypted, cipher.final()]);
+
+  return iv.toString("hex") + ":" + encrypted.toString("hex");
+};
 
 const getUserById = (id) => {
   return db.query("SELECT * FROM users WHERE id = $1;", [id]).then((result) => {
@@ -23,7 +57,15 @@ const getUserPasswordsById = (id) => {
     `,
       [id]
     )
-    .then((result) => result.rows);
+    .then((result) => {
+      const rows = result.rows.map((row) => {
+        return {
+          ...row,
+          password: decrypt(row.password),
+        };
+      });
+      return rows;
+    });
 };
 
 const getOrganizationPasswordsById = (id) => {
@@ -39,7 +81,15 @@ const getOrganizationPasswordsById = (id) => {
     `,
       [id]
     )
-    .then((result) => result.rows);
+    .then((result) => {
+      const rows = result.rows.map((row) => {
+        return {
+          ...row,
+          password: decrypt(row.password),
+        };
+      });
+      return rows;
+    });
 };
 
 const getOrganizationNameById = (id) => {
@@ -87,25 +137,18 @@ const createNewPassword = async (
       )
       .then((result) => result.rows[0].id);
   }
-
   // Add website, then find website id
   const websiteId = await db
     .query(
-      `
-    INSERT INTO websites (name, category_id) VALUES ($1, $2)
-    RETURNING *;
-  `,
+      `INSERT INTO websites (name, category_id) VALUES ($1, $2) RETURNING *; `,
       [website, categoryId]
     )
     .then((result) => result.rows[0].id);
 
   // Add new password
   return db.query(
-    `
-    INSERT INTO user_passwords (user_id, website_id, username, password)
-    VALUES ($1, $2, $3, $4)
-    `,
-    [userId, websiteId, userName, password]
+    `INSERT INTO user_passwords (user_id, website_id, username, password) VALUES ($1, $2, $3, $4)`,
+    [userId, websiteId, userName, encrypt(password)]
   );
 };
 
