@@ -82,7 +82,6 @@ router.put("/", async (req, res) => {
   // Update user password in DB
   const newPassword = req.body.newPassword;
   const userPasswordId = req.body.userPasswordId;
-  console.log(newPassword, userPasswordId);
   await editUserPassword(newPassword, userPasswordId);
 
   return res.sendStatus(200);
