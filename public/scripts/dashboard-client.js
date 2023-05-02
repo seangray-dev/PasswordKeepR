@@ -50,7 +50,7 @@ function hideModalWithFadeOut(modal) {
   }, 500);
 }
 
-// Edit password (also needs to update the database securely)
+// Edit password
 const editPasswordButtons = document.querySelectorAll(".edit-password");
 const editPasswordmodal = document.getElementById("editPasswordModal");
 const cancelButton = editPasswordmodal.querySelector(".cancel-edit-password");
@@ -63,7 +63,7 @@ editPasswordButtons.forEach((button, index) => {
     // When the form is submitted, update the password and hide the editPasswordmodal
     editPasswordmodal
       .querySelector("form")
-      .addEventListener("submit", (event) => {
+      .addEventListener("submit", async (event) => {
         event.preventDefault();
 
         const newPassword = document.getElementById("newPassword").value;
@@ -75,9 +75,29 @@ editPasswordButtons.forEach((button, index) => {
           return;
         }
 
-        // Update the password element
-        const password = document.querySelectorAll(".hidden-password")[index];
-        password.textContent = newPassword;
+        // Get the password card element, then get the user password id from hidden html elements
+        const passwordCard = button.closest(".dashboard__passwords-card");
+        const userPasswordId = passwordCard.querySelector(".hidden-user-password-id").innerHTML;
+        const data = {newPassword: newPassword, userPasswordId: userPasswordId};
+
+        // Send request to backend to update password in DB
+        const response = await fetch("/dashboard", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+
+        if (response.ok) {
+          // Update the password element
+          // Find password span element in current 'passwordCard' element
+          // and then update its content with the new password
+          const passwordSpan = passwordCard.querySelector(".hidden-password");
+          passwordSpan.textContent = newPassword;
+        } else {
+          console.error("Failed to update password");
+        }
 
         // Hide the editPasswordmodal with fade-out animation
         hideModalWithFadeOut(editPasswordmodal);
@@ -183,7 +203,7 @@ window.addEventListener("click", (event) => {
 
 const categorySelect = document.getElementById("category");
 const newCategoryInput = document.getElementById("newCategoryInput");
-const modalForm = document.querySelector(".modal-form");
+const addModalForm = document.querySelector("#newPasswordModal .modal-form");
 
 // Show or hide the newCategoryInput based on the selected option
 categorySelect.addEventListener("change", function () {
@@ -195,7 +215,7 @@ categorySelect.addEventListener("change", function () {
 });
 
 // Add a new category to the select input after the form is submitted
-modalForm.addEventListener("submit", async function (event) {
+addModalForm.addEventListener("submit", async function (event) {
   // Prevent default form submission
   event.preventDefault();
 
@@ -217,7 +237,7 @@ modalForm.addEventListener("submit", async function (event) {
   }
 
   // Handle form submission using Fetch API
-  const formData = new FormData(modalForm);
+  const formData = new FormData(addModalForm);
   const data = Object.fromEntries(formData);
 
   const response = await fetch("/dashboard", {
