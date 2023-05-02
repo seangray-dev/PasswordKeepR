@@ -97,7 +97,7 @@ window.addEventListener("click", (event) => {
   }
 });
 
-// Delete Password (also needs to delete the password from the database securely)
+// Delete Password
 const deletePasswordButtons = document.querySelectorAll(".delete-password");
 const deletePasswordModal = document.getElementById("deletePasswordModal");
 const confirmDeleteButton = deletePasswordModal.querySelector(
@@ -112,14 +112,32 @@ deletePasswordButtons.forEach((button) => {
     // Show the deletePasswordModal with fade-in animation
     showModal(deletePasswordModal);
 
-    // When the confirm delete button is clicked, delete the password card and hide the deletePasswordModal with fade-out animation
-    confirmDeleteButton.addEventListener("click", () => {
+    // When the confirm delete button is clicked, delete password and website from DB
+    // Then delete the password card and hide the deletePasswordModal with fade-out animation
+    confirmDeleteButton.addEventListener("click", async () => {
       // Get the password card element and remove it with fade-out animation
       const passwordCard = button.closest(".dashboard__passwords-card");
-      passwordCard.classList.add("fade-out");
-      setTimeout(() => {
-        passwordCard.remove();
-      }, 500);
+      // Get the user password id and website id from hidden html elements
+      const userPasswordId = passwordCard.querySelector(".hidden-user-password-id").innerHTML;
+      const websiteId = passwordCard.querySelector(".hidden-website-id").innerHTML;
+      const data = {userPasswordId: userPasswordId, websiteId: websiteId};
+
+      const response = await fetch("/dashboard", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        passwordCard.classList.add("fade-out");
+        setTimeout(() => {
+          passwordCard.remove();
+        }, 500);
+      } else {
+        console.error("Failed to delete password");
+      }
 
       // Hide the deletePasswordModal with fade-out animation
       hideModalWithFadeOut(deletePasswordModal);
