@@ -1,6 +1,34 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../db/connection");
+const {
+  getOrganizationPasswordsById,
+  getOrganizationNameById,
+  getUserById,
+} = require("../db/queries/dashboard");
+const { getUsersByOrganizationId } = require("../db/queries/organizations");
+
+router.get("/", async (req, res) => {
+  if (!(await getUserById(req.session.userId))) {
+    return res.send("Please login to view your Dashboard!");
+  }
+
+  const organizationPasswords = await getOrganizationPasswordsById(
+    req.session.userId
+  );
+
+  const organizationName = await getOrganizationNameById(req.session.userId);
+
+  const organizationUsers = await getUsersByOrganizationId(req.session.userId);
+
+  const data = {
+    organizationPasswords,
+    organizationName,
+    organizationUsers,
+  };
+
+  res.render("admin", data);
+});
 
 router.get("/", (req, res) => {
   if (!req.session.userId) {
