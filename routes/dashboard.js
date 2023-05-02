@@ -6,8 +6,9 @@ const {
   getUserPasswordsById,
   getOrganizationPasswordsById,
   getOrganizationNameById,
-  createNewPassword,
+  editUserPassword,
   deleteUserPasswordAndWebsite,
+  createNewPassword,
 } = require("../db/queries/dashboard");
 
 router.use(
