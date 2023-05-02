@@ -9,7 +9,6 @@ const {
   editUserPassword,
   deleteUserPasswordAndWebsite,
   createNewPassword,
-  deleteUserPasswordAndWebsite,
 } = require("../db/queries/dashboard");
 
 router.use(
