@@ -22,7 +22,28 @@ const createOrganization = async (name, adminId) => {
   return result.rows[0];
 };
 
+// Get all users of an organization
+const getUsersByOrganizationId = async (userId) => {
+  const query = {
+    text: `
+      SELECT u.id, u.email, u.password, u.is_admin
+      FROM users u
+      INNER JOIN organizations o ON u.organization_id = o.id
+      WHERE o.id = (
+        SELECT organization_id
+        FROM users
+        WHERE id = $1
+      );
+    `,
+    values: [userId],
+  };
+
+  const result = await db.query(query);
+  return result.rows;
+};
+
 module.exports = {
   getOrganizationByName,
   createOrganization,
+  getUsersByOrganizationId,
 };
