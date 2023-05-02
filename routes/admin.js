@@ -12,6 +12,10 @@ router.get("/", async (req, res) => {
     return res.redirect("/login");
   }
 
+  function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
   const userId = req.session.userId;
   const isAdminQuery = `SELECT is_admin FROM users WHERE id = $1`;
   db.query(isAdminQuery, [userId], async (err, result) => {
@@ -25,11 +29,12 @@ router.get("/", async (req, res) => {
     if (isAdmin) {
       const organizationPasswords = await getOrganizationPasswordsById(userId);
       const organizationName = await getOrganizationNameById(userId);
+      const capitalizedOrganizationName = capitalizeFirstLetter(organizationName.name);
       const allOrganizationUsers = await getUsersByOrganizationId(userId);
       const organizationUsers = allOrganizationUsers.filter(user => !user.is_admin);
       const data = {
         organizationPasswords,
-        organizationName,
+        organizationName: { ...organizationName, name: capitalizedOrganizationName },
         organizationUsers,
         isAdmin,
       };
@@ -45,5 +50,6 @@ router.get("/", async (req, res) => {
     }
   });
 });
+
 
 module.exports = router;
