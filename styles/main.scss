@@ -328,6 +328,7 @@
 .admin {
   font-family: var(--font-body);
   background-color: var(--color-ghostWhite);
+  font-weight: 700;
 }
 
 // Dashbaord
@@ -341,6 +342,7 @@
   &__title,
   &__heading {
     font-family: var(--font-heading);
+    color: white;
   }
 
   &__heading {
@@ -686,7 +688,7 @@
 }
 
 .modal-title {
-  color: var(--color-heading);
+  color: white;
   font-size: 1.5rem;
 }
 
@@ -698,12 +700,17 @@
 
 .form-group input {
   background: transparent;
+  color: white;
   border: none;
   outline: none;
   padding: 0.5rem;
-  border-bottom: 2px solid var(--color-heading);
+  border-bottom: 3px solid var(--color-heading);
   transition: all 0.3s ease;
   margin-bottom: 2rem;
+}
+
+.form-group input:focus {
+  border-color: var(--color-primary);
 }
 
 .form-group-password {
