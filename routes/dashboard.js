@@ -6,6 +6,8 @@ const {
   getUserPasswordsById,
   getOrganizationPasswordsById,
   getOrganizationNameById,
+  editUserPassword,
+  deleteUserPasswordAndWebsite,
   createNewPassword,
 } = require("../db/queries/dashboard");
 
@@ -70,6 +72,33 @@ router.post("/", async (req, res) => {
   await createNewPassword(userId, userName, website, password, category);
 
   res.redirect("/dashboard");
+});
+
+router.put("/", async (req, res) => {
+  if (!(await getUserById(req.session.userId))) {
+    return res.send("Please login to edit password!");
+  }
+
+  // Update user password in DB
+  const newPassword = req.body.newPassword;
+  const userPasswordId = req.body.userPasswordId;
+  console.log(newPassword, userPasswordId);
+  await editUserPassword(newPassword, userPasswordId);
+
+  return res.sendStatus(200);
+});
+
+router.delete("/", async (req, res) => {
+  if (!(await getUserById(req.session.userId))) {
+    return res.send("Please login to delete password!");
+  }
+
+  // Delete password and website from DB
+  const userPasswordId = req.body.userPasswordId;
+  const websiteId = req.body.websiteId;
+  await deleteUserPasswordAndWebsite(userPasswordId, websiteId)
+
+  return res.sendStatus(200);
 });
 
 module.exports = router;
