@@ -67,13 +67,13 @@ input[range]::-webkit-slider-thumb {
 // Global Styles
 
 :root {
-  --font-heading: "Fraunces", serif;
-  --font-body: "Manrope", sans-serif;
-  --color-heading: #24053e;
-  --color-body: #584d62;
-  --color-primary: #44ffa1;
-  --color-ghostWhite: #fcf8ff;
-  --color-error: #ec5757;
+  --font-heading: "Plus Jakarta Sans", sans-serif;
+  --font-body: "Plus Jakarta Sans", sans-serif;
+  --color-heading: #2b2c37;
+  --color-body: #828fa3;
+  --color-primary: #635fc7;
+  --color-ghostWhite: #20212c;
+  --color-error: #ea5555;
   --strength-low: #f64a4a;
   --stength-weak: #fb7c58;
   --strength-medium: #f8cd65;
@@ -83,7 +83,7 @@ input[range]::-webkit-slider-thumb {
 .btn-primary {
   cursor: pointer;
   background-color: var(--color-primary);
-  color: var(--color-heading);
+  color: white;
   padding: 12px 24px;
   border: 1px solid var(--color-primary);
   max-width: 190px;
@@ -91,12 +91,12 @@ input[range]::-webkit-slider-thumb {
   font-weight: 700;
   transition: all 0.3s ease;
   border-radius: 8px;
+  letter-spacing: 0.5px;
 }
 
 .btn-primary:hover,
 .btn-primary:focus {
-  background-color: transparent;
-  color: var(--color-primary);
+  background-color: #a8a4ff;
 }
 
 .btn-secondary {
@@ -129,8 +129,7 @@ input[range]::-webkit-slider-thumb {
 
 .btn-red:hover,
 .btn-red:focus {
-  background-color: transparent;
-  color: var(--color-error);
+  background-color: #ff9898;
 }
 
 .success {
