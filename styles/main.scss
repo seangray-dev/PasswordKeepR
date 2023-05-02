@@ -159,10 +159,11 @@
 
   &__number {
     font-family: var(--font-heading);
-    color: var(--color-heading);
+    font-weight: 700;
+    color: var(--color-primary);
     font-size: 20px;
     margin-inline: auto;
-    border: 1px solid var(--color-heading);
+    border: 1px solid var(--color-primary);
     border-radius: 50%;
     display: inline-flex;
     align-items: center;
@@ -173,13 +174,14 @@
 
   &__header {
     font-family: var(--font-heading);
-    color: var(--color-heading);
+    color: white;
     font-size: 28px;
   }
 
   &__body {
-    color: var(--color-body);
+    color: #828fa3;
     font-size: 1rem;
+    letter-spacing: 0.5px;
   }
 }
 
@@ -255,6 +257,7 @@
     margin-inline: auto;
     max-width: 320px;
     margin-bottom: 0.5rem;
+    color: white;
     font-family: var(--font-heading);
 
     @media (min-width: 768px) {
@@ -266,7 +269,7 @@
     max-width: 320px;
     margin-inline: auto;
     background-color: var(--color-heading);
-    color: var(--color-ghostWhite);
+    color: white;
     display: flex;
     flex-direction: column;
     gap: 2.5rem;
@@ -332,6 +335,8 @@
 .dashboard {
   font-family: var(--font-body);
   background-color: var(--color-ghostWhite);
+  color: white;
+  font-weight: 700;
 
   &__title,
   &__heading {
@@ -340,10 +345,12 @@
 
   &__heading {
     font-size: 1.5rem;
+    color: white;
 
     &-category {
       font-size: 1rem;
       margin-bottom: 0.5rem;
+      color: white;
 
       @media (min-width: 768px) {
         font-size: 1.25rem;
@@ -380,18 +387,19 @@
     &-cards {
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      gap: 1.25rem;
     }
 
     &-card {
-      background-color: white;
+      background-color: #2b2c37;
+      color: white;
       border-radius: 8px;
       padding: 1.5rem;
       font-size: 0.9375rem;
       display: flex;
       flex-direction: column;
       gap: 1.5rem;
-      box-shadow: 0px 10px 10px 0px rgba(72, 84, 159, 0.1004);
+      box-shadow: 0px, 4px rgba(54, 78, 126, 0.1015);
 
       @media (min-width: 768px) {
         flex-direction: row;
@@ -418,7 +426,6 @@
     }
 
     &-username {
-      color: var(--color-heading);
       font-weight: 700;
     }
 
@@ -438,7 +445,7 @@
     }
 
     &-buttons i {
-      color: var(--color-heading);
+      color: var(--color-body);
       transition: all 0.3s ease;
     }
 
