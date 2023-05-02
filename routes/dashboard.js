@@ -45,10 +45,14 @@ router.get("/", async (req, res) => {
     }
   }
 
-  const passwordData = {
+const user = await getUserById(req.session.userId);
+const isAdmin = user.is_admin;
+
+const passwordData = {
     groupedUserPasswords: groupedUserPasswords,
     organizationPasswords: organizationPasswords,
     organizationName: organizationName,
+    isAdmin: isAdmin,
   };
   res.render("dashboard", passwordData);
 });
