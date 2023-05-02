@@ -22,20 +22,7 @@ const createOrganization = async (name, adminId) => {
   return result.rows[0];
 };
 
-// Get all users of an organization
-const getUsersByOrganizationId = (organizationId) => {
-  return db
-    .query(
-      `
-    SELECT id, email, password, is_admin FROM users WHERE organization_id = $1;
-    `,
-      [organizationId]
-    )
-    .then((result) => result.rows);
-};
-
 module.exports = {
   getOrganizationByName,
   createOrganization,
-  getUsersByOrganizationId,
 };
