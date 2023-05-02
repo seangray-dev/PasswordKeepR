@@ -20,6 +20,7 @@ router.get("/", (req, res) => {
 router.post("/", async (req, res) => {
   try {
     const { email, password, password_confirm, organization } = req.body;
+    const organizationLower = organization.toLowerCase();
 
     // Check if user already exists
     const existingUser = await getUserByEmail(email);
@@ -38,16 +39,17 @@ router.post("/", async (req, res) => {
     let is_admin = false;
 
     // Handle organization logic
-    if (organization) {
-      const existingOrg = await getOrganizationByName(organization);
+    if (organizationLower) {
+      const existingOrg = await getOrganizationByName(organizationLower);
       if (existingOrg) {
         org_id = existingOrg.id;
       } else {
-        const newOrg = await createOrganization(organization);
+        const newOrg = await createOrganization(organizationLower);
         org_id = newOrg.id;
         is_admin = true;
       }
     }
+
 
     // Hash the user's password
     const hashedPassword = await bcrypt.hash(password, 10);
