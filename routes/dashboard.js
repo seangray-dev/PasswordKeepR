@@ -6,8 +6,6 @@ const {
   getUserPasswordsById,
   getOrganizationPasswordsById,
   getOrganizationNameById,
-  editUserPassword,
-  deleteUserPasswordAndWebsite,
   createNewPassword,
 } = require("../db/queries/dashboard");
 
