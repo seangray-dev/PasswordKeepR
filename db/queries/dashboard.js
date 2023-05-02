@@ -48,7 +48,7 @@ const getUserPasswordsById = (id) => {
   return db
     .query(
       `
-    SELECT user_passwords.username, user_passwords.password, websites.name AS website, categories.name AS category
+    SELECT user_passwords.id AS user_password_id, user_passwords.username, user_passwords.password, websites.name AS website, websites.id AS website_id, categories.name AS category
     FROM user_passwords
     JOIN users ON users.id = user_passwords.user_id
     JOIN websites ON websites.id = user_passwords.website_id
@@ -106,6 +106,36 @@ const getOrganizationNameById = (id) => {
     .then((result) => result.rows[0]);
 };
 
+const editUserPassword = (newPassword, userPasswordId) => {
+  return db.query(
+    `
+    UPDATE user_passwords
+    SET password = $1
+    WHERE id = $2
+    `,
+    [encrypt(newPassword), userPasswordId]
+  );
+};
+
+const deleteUserPasswordAndWebsite = async(userPasswordId, websiteId) => {
+  // first delete user password from user_passwords table
+  await db.query(
+    `
+    DELETE FROM user_passwords
+    WHERE id = $1
+    `,
+    [userPasswordId]);
+
+  // Then delete website from websites table
+  return db.query(
+    `
+    DELETE FROM websites
+    WHERE id = $1
+    `,
+    [websiteId]
+    );
+};
+
 const createNewPassword = async (
   userId,
   userName,
@@ -157,5 +187,7 @@ module.exports = {
   getUserPasswordsById,
   getOrganizationPasswordsById,
   getOrganizationNameById,
+  editUserPassword,
+  deleteUserPasswordAndWebsite,
   createNewPassword,
 };

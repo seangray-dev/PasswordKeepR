@@ -102,6 +102,9 @@
                 <ul class="dashboard__passwords-cards">
                   <% each.passwords.forEach((eachPassword)=> { %>
                     <li class="dashboard__passwords-card">
+                      <!-- hidden user password id and website id for deleting and editing purpose -->
+                      <span class="hidden-user-password-id hidden"><%= eachPassword.user_password_id %></span>
+                      <span class="hidden-website-id hidden"><%= eachPassword.website_id %></span>
                       <div class="dashboard__passwords-card-row-1">
                         <span class="dashboard__passwords-username">
                           <%= eachPassword.username %>
