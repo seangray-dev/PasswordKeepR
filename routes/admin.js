@@ -25,7 +25,8 @@ router.get("/", async (req, res) => {
     if (isAdmin) {
       const organizationPasswords = await getOrganizationPasswordsById(userId);
       const organizationName = await getOrganizationNameById(userId);
-      const organizationUsers = await getUsersByOrganizationId(userId);
+      const allOrganizationUsers = await getUsersByOrganizationId(userId);
+      const organizationUsers = allOrganizationUsers.filter(user => !user.is_admin);
       const data = {
         organizationPasswords,
         organizationName,
