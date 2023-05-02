@@ -9,6 +9,7 @@ const {
   editUserPassword,
   deleteUserPasswordAndWebsite,
   createNewPassword,
+  deleteUserPasswordAndWebsite,
 } = require("../db/queries/dashboard");
 
 router.use(
@@ -46,10 +47,10 @@ router.get("/", async (req, res) => {
     }
   }
 
-const user = await getUserById(req.session.userId);
-const isAdmin = user.is_admin;
+  const user = await getUserById(req.session.userId);
+  const isAdmin = user.is_admin;
 
-const passwordData = {
+  const passwordData = {
     groupedUserPasswords: groupedUserPasswords,
     organizationPasswords: organizationPasswords,
     organizationName: organizationName,
@@ -95,7 +96,7 @@ router.delete("/", async (req, res) => {
   // Delete password and website from DB
   const userPasswordId = req.body.userPasswordId;
   const websiteId = req.body.websiteId;
-  await deleteUserPasswordAndWebsite(userPasswordId, websiteId)
+  await deleteUserPasswordAndWebsite(userPasswordId, websiteId);
 
   return res.sendStatus(200);
 });
