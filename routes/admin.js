@@ -2,12 +2,14 @@ const express = require("express");
 const router = express.Router();
 const db = require("../db/connection");
 const {
+  getUserById,
   getOrganizationPasswordsById,
   getOrganizationNameById
 } = require("../db/queries/dashboard");
 const {
   getUsersByOrganizationId,
   getOrganizationIdByUserId,
+  deleteOrganizationPasswordAndWebsite,
   createNewOrganizationPassword
  } = require("../db/queries/organizations");
 
@@ -70,5 +72,16 @@ router.post("/", async (req, res) => {
   res.redirect("/admin");
 });
 
+router.delete("/", async (req, res) => {
+  if (!(await getUserById(req.session.userId))) {
+    return res.send("Please login to delete password!");
+  }
+  // Delete organization password and website from DB
+  const organizationPasswordId = req.body.organizationPasswordId;
+  const websiteId = req.body.websiteId;
+  await deleteOrganizationPasswordAndWebsite(organizationPasswordId, websiteId)
+
+  return res.sendStatus(200);
+});
 
 module.exports = router;

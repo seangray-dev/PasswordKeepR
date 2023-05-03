@@ -74,6 +74,26 @@ const getOrganizationIdByUserId = (userId) => {
     .then((result) => result.rows[0].organization_id);
 };
 
+// Delete organization password and website
+const deleteOrganizationPasswordAndWebsite = async(organizationPasswordId, websiteId) => {
+  // first delete organization password from org_passwords table
+  await db.query(
+    `
+    DELETE FROM org_passwords
+    WHERE id = $1
+    `,
+    [organizationPasswordId]);
+
+  // Then delete website from websites table
+  return db.query(
+    `
+    DELETE FROM websites
+    WHERE id = $1
+    `,
+    [websiteId]
+    );
+};
+
 // Create new organization password
 const createNewOrganizationPassword = async (
   organizationId,
@@ -117,5 +137,6 @@ module.exports = {
   createOrganization,
   getUsersByOrganizationId,
   getOrganizationIdByUserId,
+  deleteOrganizationPasswordAndWebsite,
   createNewOrganizationPassword
 };
