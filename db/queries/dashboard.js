@@ -72,7 +72,7 @@ const getOrganizationPasswordsById = (id) => {
   return db
     .query(
       `
-    SELECT org_passwords.username, org_passwords.password, websites.name AS website
+    SELECT org_passwords.id AS org_password_id, org_passwords.username, org_passwords.password, websites.name AS website, websites.id AS website_id
     FROM org_passwords
     JOIN organizations ON organizations.id = org_passwords.organization_id
     JOIN users ON users.organization_id = organizations.id
