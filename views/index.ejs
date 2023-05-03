@@ -1,124 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>PasswordKeepR | Home</title>
 
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+  <title>PasswordKeepR | Home</title>
 
-    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
-    <link rel="stylesheet" href="/vendor/border-box.css" />
-    <link rel="stylesheet" href="/styles/main.css" />
-    <link rel="stylesheet" href="/styles/layout.css" />
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- fonts -->
+  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
+  <link rel="stylesheet" href="/vendor/border-box.css" />
+  <link rel="stylesheet" href="/styles/main.css" />
+  <link rel="stylesheet" href="/styles/layout.css" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
+  <!-- fonts -->
 
-    <!-- font-awesome-icons -->
-    <script
-      src="https://kit.fontawesome.com/be692c047d.js"
-      crossorigin="anonymous"
-    ></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
 
-    <script src="/vendor/jquery-3.0.0.js"></script>
-    <script defer src="/scripts/app.js"></script>
-  </head>
+  <!-- font-awesome-icons -->
+  <script src="https://kit.fontawesome.com/be692c047d.js" crossorigin="anonymous"></script>
 
-  <body>
-    <nav class="nav">
-      <div class="nav__container container">
-        <a href="/" class="nav__logo">
-          Password<span class="nav__logo-light">KeepR</span>
-        </a>
-        <a href="/login"><button class="btn-secondary">Login</button></a>
-      </div>
-    </nav>
-    <header class="header">
-      <div class="header__container container">
-        <h1 class="header__title">
-          Secure Passwords,
-          <span class="header__title-underline">Customized</span> for You
-        </h1>
-        <a href="/register">
-          <button class="header__button btn-primary">Register</button>
-        </a>
-        <img
-          class="header__image"
-          src="../assets/hero-illustration.png"
-          alt="key and lock illustration"
-        />
-      </div>
-    </header>
-    <section class="features">
-      <ul class="features__list container">
-        <li class="features__list-item">
-          <p class="features__number">1</p>
-          <div class="features__list-item-div">
-            <h3 class="features__header">Security Simplified</h3>
-            <p class="features__body">
-              Easily manage and secure your organization's passwords. Enhance
-              user experience and boost productivity while maintaining strong
-              password security practices.
-            </p>
-          </div>
-        </li>
-        <li class="features__list-item">
-          <p class="features__number">2</p>
-          <div class="features__list-item-div">
-            <h3 class="features__header">Effortless Collaboration</h3>
-            <p class="features__body">
-              Empower your team members to efficiently access and share critical
-              passwords within your organization. Keep your accounts secure
-              while fostering seamless collaboration.
-            </p>
-          </div>
-        </li>
-        <li class="features__list-item">
-          <p class="features__number">3</p>
-          <div class="features__list-item-div">
-            <h3 class="features__header">Affordable and Scalable</h3>
-            <p class="features__body">
-              Our password storage system offers budget-friendly pricing
-              tailored to your organization's needs. Benefit from top-quality
-              password management without hidden costs or unexpected fees
-            </p>
-          </div>
-        </li>
-      </ul>
-    </section>
-    <section class="join container">
-      <div class="join__card">
-        <h4 class="join__card-title">Be the first to test</h4>
-        <p class="join__card-body">
-          Join us as a beta tester for our app and actively contribute to its
-          development. Seize the opportunity to elevate your company's password
-          management experience. Sign up for access below.
-        </p>
-        <a href="/register"><button class="btn-primary">Register</button></a>
-      </div>
-    </section>
-    <footer class="footer">
+  <script src="/vendor/jquery-3.0.0.js"></script>
+  <script defer src="/scripts/app.js"></script>
+</head>
+
+<body>
+  <nav class="nav">
+    <div class="nav__container container">
       <a href="/" class="nav__logo">
         Password<span class="nav__logo-light">KeepR</span>
       </a>
-      <div class="footer__links">
-        <a href="/"
-          ><i class="fa-brands fa-square-facebook fa-xl footer__links-icon"></i
-        ></a>
-        <a href="/"
-          ><i class="fa-brands fa-twitter fa-xl footer__links-icon"></i
-        ></a>
-        <a href="/"
-          ><i class="fa-brands fa-instagram fa-xl footer__links-icon"></i
-        ></a>
+      <div class="nav-links">
+        <a href="/generator"><button class="btn-secondary btn-generator">Generator</button></a>
+        <a href="/login"><button class="btn-secondary">Login</button></a>
       </div>
-    </footer>
-  </body>
+    </div>
+  </nav>
+  <header class="header">
+    <div class="header__container container">
+      <h1 class="header__title">
+        Secure Passwords,
+        <span class="header__title-underline">Customized</span> for You
+      </h1>
+      <a href="/register">
+        <button class="header__button btn-primary">Register</button>
+      </a>
+      <img class="header__image" src="../assets/hero-illustration.png" alt="key and lock illustration" />
+    </div>
+  </header>
+  <section class="features">
+    <ul class="features__list container">
+      <li class="features__list-item">
+        <p class="features__number">1</p>
+        <div class="features__list-item-div">
+          <h3 class="features__header">Security Simplified</h3>
+          <p class="features__body">
+            Easily manage and secure your organization's passwords. Enhance
+            user experience and boost productivity while maintaining strong
+            password security practices.
+          </p>
+        </div>
+      </li>
+      <li class="features__list-item">
+        <p class="features__number">2</p>
+        <div class="features__list-item-div">
+          <h3 class="features__header">Effortless Collaboration</h3>
+          <p class="features__body">
+            Empower your team members to efficiently access and share critical
+            passwords within your organization. Keep your accounts secure
+            while fostering seamless collaboration.
+          </p>
+        </div>
+      </li>
+      <li class="features__list-item">
+        <p class="features__number">3</p>
+        <div class="features__list-item-div">
+          <h3 class="features__header">Affordable and Scalable</h3>
+          <p class="features__body">
+            Our password storage system offers budget-friendly pricing
+            tailored to your organization's needs. Benefit from top-quality
+            password management without hidden costs or unexpected fees
+          </p>
+        </div>
+      </li>
+    </ul>
+  </section>
+  <section class="join container">
+    <div class="join__card">
+      <h4 class="join__card-title">Be the first to test</h4>
+      <p class="join__card-body">
+        Join us as a beta tester for our app and actively contribute to its
+        development. Seize the opportunity to elevate your company's password
+        management experience. Sign up for access below.
+      </p>
+      <a href="/register"><button class="btn-primary">Register</button></a>
+    </div>
+  </section>
+  <footer class="footer">
+    <a href="/" class="nav__logo">
+      Password<span class="nav__logo-light">KeepR</span>
+    </a>
+    <div class="footer__links">
+      <a href="/"><i class="fa-brands fa-square-facebook fa-xl footer__links-icon"></i></a>
+      <a href="/"><i class="fa-brands fa-twitter fa-xl footer__links-icon"></i></a>
+      <a href="/"><i class="fa-brands fa-instagram fa-xl footer__links-icon"></i></a>
+    </div>
+  </footer>
+</body>
+
 </html>
