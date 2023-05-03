@@ -507,6 +507,16 @@
       .hidden {
         display: none;
       }
+
+      span {
+        font-size: 10px;
+      }
+
+      @media (min-width: 768px) {
+        span {
+          font-size: 16px;
+        }
+      }
     }
 
     &-password i {
