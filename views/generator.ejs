@@ -1,141 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>PasswordKeepR | Login</title>
 
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+  <title>PasswordKeepR | Login</title>
 
-    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
-    <link rel="stylesheet" href="/vendor/border-box.css" />
-    <link rel="stylesheet" href="/styles/main.css" />
-    <link rel="stylesheet" href="/styles/layout.css" />
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- fonts -->
+  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
+  <link rel="stylesheet" href="/vendor/border-box.css" />
+  <link rel="stylesheet" href="/styles/main.css" />
+  <link rel="stylesheet" href="/styles/layout.css" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
+  <!-- fonts -->
 
-    <!-- font-awesome-icons -->
-    <script
-      src="https://kit.fontawesome.com/be692c047d.js"
-      crossorigin="anonymous"
-    ></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
 
-    <script src="/vendor/jquery-3.0.0.js"></script>
-    <script defer src="/scripts/app.js"></script>
-    <script defer src="/scripts/generator.js"></script>
-  </head>
+  <!-- font-awesome-icons -->
+  <script src="https://kit.fontawesome.com/be692c047d.js" crossorigin="anonymous"></script>
 
-  <body class="register-login-body">
-    <nav class="nav">
-      <div class="nav__container container">
-        <a href="/" class="nav__logo">
-          Password<span class="nav__logo-light">KeepR</span>
-        </a>
-        <a href="/login"><button class="btn-secondary">Login</button></a>
-      </div>
-    </nav>
-    <main class="generator container">
-      <section>
-        <h1 class="generator__title">Password Generator</h1>
-        <div class="generator__card">
-          <div class="generator__card-password">
-            <span>password</span>
-            <i class="fa-solid fa-copy fa-lg"></i>
-            <i class="fa-solid fa-check fa-lg hidden"></i>
+  <script src="/vendor/jquery-3.0.0.js"></script>
+  <script defer src="/scripts/app.js"></script>
+  <script defer src="/scripts/generator.js"></script>
+</head>
+
+<body class="register-login-body">
+  <nav class="nav">
+    <div class="nav__container container">
+      <a href="/" class="nav__logo">
+        Password<span class="nav__logo-light">KeepR</span>
+      </a>
+      <button class="btn-secondary" onclick="goBack()">Return</button>
+    </div>
+  </nav>
+  <main class="generator container">
+    <section>
+      <h1 class="generator__title">Password Generator</h1>
+      <div class="generator__card">
+        <div class="generator__card-password">
+          <span>password</span>
+          <i class="fa-solid fa-copy fa-lg"></i>
+          <i class="fa-solid fa-check fa-lg hidden"></i>
+        </div>
+        <div class="generator__form">
+          <div class="input-char-length">
+            <label class="char-length-span" for="char-length">
+              <p>Character Length</p>
+              <span class="char-length-num">10</span>
+            </label>
+            <input class="char-length-input" type="range" name="char-length" value="10" min="6" max="20" step="1" />
           </div>
-          <div class="generator__form">
-            <div class="input-char-length">
-              <label class="char-length-span" for="char-length"
-                ><p>Character Length</p>
-                <span class="char-length-num">10</span>
-              </label>
-              <input
-                class="char-length-input"
-                type="range"
-                name="char-length"
-                value="10"
-                min="6"
-                max="20"
-                step="1"
-              />
-            </div>
-            <div class="generator__form-input">
-              <input
-                id="includeUppercase"
-                class="generator__checkbox"
-                type="checkbox"
-                value="uppercase"
-                name="uppercase"
-                checked
-              />
-              <label for="includeUppercase">Include Uppercase Letters</label>
-            </div>
-            <div class="generator__form-input">
-              <input
-                id="includeLowercase"
-                class="generator__checkbox"
-                type="checkbox"
-                value="lowercase"
-                name="lowercase"
-                checked
-              />
-              <label for="includeLowercase">Include Lowercase Letters</label>
-            </div>
-            <div class="generator__form-input">
-              <input
-                id="includeNumber"
-                class="generator__checkbox"
-                type="checkbox"
-                value="numbers"
-                name="numbers"
-                checked
-              />
-              <label for="includeNumber">Include Numbers</label>
-            </div>
-            <div class="generator__form-input">
-              <input
-                id="includeSymbol"
-                class="generator__checkbox"
-                type="checkbox"
-                value="symbols"
-                name="symbols"
-              />
+          <div class="generator__form-input">
+            <input id="includeUppercase" class="generator__checkbox" type="checkbox" value="uppercase" name="uppercase"
+              checked />
+            <label for="includeUppercase">Include Uppercase Letters</label>
+          </div>
+          <div class="generator__form-input">
+            <input id="includeLowercase" class="generator__checkbox" type="checkbox" value="lowercase" name="lowercase"
+              checked />
+            <label for="includeLowercase">Include Lowercase Letters</label>
+          </div>
+          <div class="generator__form-input">
+            <input id="includeNumber" class="generator__checkbox" type="checkbox" value="numbers" name="numbers"
+              checked />
+            <label for="includeNumber">Include Numbers</label>
+          </div>
+          <div class="generator__form-input">
+            <input id="includeSymbol" class="generator__checkbox" type="checkbox" value="symbols" name="symbols" />
 
-              <label for="includeSymbol">Include Symbols</label>
-            </div>
+            <label for="includeSymbol">Include Symbols</label>
+          </div>
 
-            <div class="password-strength">
-              <span>Strength</span>
-              <div class="strength-col2">
-                <span>Medium</span>
-                <div class="strength-bars">
-                  <div
-                    class="strength-bar strength-medium"
-                    id="strength-bar1"
-                  ></div>
-                  <div
-                    class="strength-bar strength-medium"
-                    id="strength-bar2"
-                  ></div>
-                  <div
-                    class="strength-bar strength-medium"
-                    id="strength-bar3"
-                  ></div>
-                  <div class="strength-bar" id="strength-bar4"></div>
-                </div>
+          <div class="password-strength">
+            <span>Strength</span>
+            <div class="strength-col2">
+              <span>Medium</span>
+              <div class="strength-bars">
+                <div class="strength-bar strength-medium" id="strength-bar1"></div>
+                <div class="strength-bar strength-medium" id="strength-bar2"></div>
+                <div class="strength-bar strength-medium" id="strength-bar3"></div>
+                <div class="strength-bar" id="strength-bar4"></div>
               </div>
             </div>
-            <button id="generateButton" class="btn-primary">Generate</button>
           </div>
+          <button id="generateButton" class="btn-primary">Generate</button>
         </div>
-      </section>
-    </main>
-  </body>
+      </div>
+    </section>
+  </main>
+</body>
+
 </html>
