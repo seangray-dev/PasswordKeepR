@@ -44,11 +44,18 @@
     display: flex;
   }
 
-  .generator-btn {
+  .btn-generator {
     padding-left: 1rem;
+    margin-right: 1rem;
   }
 
-  .btn-secondary {
+  .btn-admin {
+    padding-left: 1rem;
+    margin-right: 1rem;
+  }
+
+  .btn-dashboard {
+    padding-left: 1rem;
     margin-right: 1rem;
   }
 }
