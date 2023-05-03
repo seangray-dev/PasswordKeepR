@@ -163,6 +163,33 @@ window.addEventListener("click", (event) => {
   }
 });
 
+const addModalForm = document.querySelector("#newPasswordModal .modal-form");
+
+addModalForm.addEventListener("submit", async function (event) {
+  // Prevent default form submission
+  event.preventDefault();
+
+  // Handle form submission using Fetch API
+  const formData = new FormData(addModalForm);
+  const data = Object.fromEntries(formData);
+
+  const response = await fetch("/admin", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (response.ok) {
+    // Redirect to /dashboard after successful submission
+    window.location.href = "/admin";
+  } else {
+    // Handle any error messages here
+    console.error("Failed to submit new password");
+  }
+});
+
 // Edit User
 const editUserModal = document.getElementById("editUserModal");
 const editUserButtons = document.querySelectorAll(".edit-user");

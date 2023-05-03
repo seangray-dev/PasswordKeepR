@@ -3,9 +3,13 @@ const router = express.Router();
 const db = require("../db/connection");
 const {
   getOrganizationPasswordsById,
-  getOrganizationNameById,
+  getOrganizationNameById
 } = require("../db/queries/dashboard");
-const { getUsersByOrganizationId } = require("../db/queries/organizations");
+const {
+  getUsersByOrganizationId,
+  getOrganizationIdByUserId,
+  createNewOrganizationPassword
+ } = require("../db/queries/organizations");
 
 router.get("/", async (req, res) => {
   if (!req.session.userId) {
@@ -13,8 +17,8 @@ router.get("/", async (req, res) => {
   }
 
   function capitalizeFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
 
   const userId = req.session.userId;
   const isAdminQuery = `SELECT is_admin FROM users WHERE id = $1`;
@@ -49,6 +53,21 @@ router.get("/", async (req, res) => {
       return res.render("dashboard", data);
     }
   });
+});
+
+router.post("/", async (req, res) => {
+  //Add new organization password to DB
+  const organizationId = await getOrganizationIdByUserId(req.session.userId);
+  if (!organizationId) {
+    throw new Error("Organization id not found!")
+  }
+
+  const userName = req.body.username;
+  const website = req.body.website;
+  const password = req.body.password;
+  await createNewOrganizationPassword(organizationId, userName, website, password);
+
+  res.redirect("/admin");
 });
 
 
