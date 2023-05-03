@@ -23,7 +23,6 @@
 
   &-links {
     display: flex;
-    gap: 1rem;
   }
 
   &__container {
@@ -40,7 +39,21 @@
       font-weight: 300;
     }
   }
+
+  .nav-links {
+    display: flex;
+  }
+
+  .generator-btn {
+    padding-left: 1rem;
+  }
+
+  .btn-secondary {
+    margin-right: 1rem;
+  }
 }
+
+
 
 .header {
   background-color: var(--color-heading);
@@ -650,8 +663,20 @@
         font-size: 12px;
       }
     }
+  }
 
+  .btn-secondary {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 10px;
+    font-size: 1rem;
+    font-family: var(--font-heading);
+    color: white;
 
+    @media (min-width: 768px) {
+      font-size: 1.25rem;
+    }
   }
 
   .strength-bars {
