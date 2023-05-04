@@ -75,14 +75,18 @@ const getOrganizationIdByUserId = (userId) => {
 };
 
 // Delete organization password and website
-const deleteOrganizationPasswordAndWebsite = async(organizationPasswordId, websiteId) => {
+const deleteOrganizationPasswordAndWebsite = async (
+  organizationPasswordId,
+  websiteId
+) => {
   // first delete organization password from org_passwords table
   await db.query(
     `
     DELETE FROM org_passwords
     WHERE id = $1
     `,
-    [organizationPasswordId]);
+    [organizationPasswordId]
+  );
 
   // Then delete website from websites table
   return db.query(
@@ -91,7 +95,7 @@ const deleteOrganizationPasswordAndWebsite = async(organizationPasswordId, websi
     WHERE id = $1 AND id NOT IN (SELECT website_id FROM user_passwords) AND id NOT IN (SELECT website_id FROM org_passwords)
     `,
     [websiteId]
-    );
+  );
 };
 
 //Edit organization password
@@ -111,7 +115,7 @@ const createNewOrganizationPassword = async (
   organizationId,
   userName,
   website,
-  password,
+  password
 ) => {
   // Get category id for "Work"
   let categoryId = await db
@@ -144,6 +148,40 @@ const createNewOrganizationPassword = async (
   );
 };
 
+// Delete a user by user ID
+const deleteUserById = async (userId) => {
+  try {
+    // Delete any passwords associated with the user
+    const deletePasswordQuery = "DELETE FROM user_passwords WHERE user_id = $1";
+    await db.query(deletePasswordQuery, [userId]);
+
+    // Delete the user
+    const deleteUserQuery = "DELETE FROM users WHERE id = $1";
+    await db.query(deleteUserQuery, [userId]);
+
+    console.log(`User with ID ${userId} has been deleted`);
+  } catch (error) {
+    console.error(`Error deleting user: ${error}`);
+  }
+};
+
+// Edit users password
+const updateUserPassword = async (userId, newPassword) => {
+  const query = `UPDATE users
+  SET PASSWORD = $1
+  WHERE id = $2
+  `;
+
+  const values = [newPassword, userId];
+
+  try {
+    await db.query(query, values);
+    console.log(`User with ID ${userId} password updated`);
+  } catch (err) {
+    console.log(`Error updating password for user with ID ${userId}:`, err);
+  }
+};
+
 module.exports = {
   getOrganizationByName,
   createOrganization,
@@ -151,5 +189,7 @@ module.exports = {
   getOrganizationIdByUserId,
   deleteOrganizationPasswordAndWebsite,
   editOrganizationPassword,
-  createNewOrganizationPassword
+  createNewOrganizationPassword,
+  deleteUserById,
+  updateUserPassword,
 };

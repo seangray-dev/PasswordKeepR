@@ -77,8 +77,13 @@ editPasswordButtons.forEach((button, index) => {
 
         // Get the password card element, then get the organization password id from hidden html elements
         const passwordCard = button.closest(".dashboard__passwords-card");
-        const organizationPasswordId = passwordCard.querySelector(".hidden-organization-password-id").innerHTML;
-        const data = {newPassword: newPassword, organizationPasswordId: organizationPasswordId};
+        const organizationPasswordId = passwordCard.querySelector(
+          ".hidden-organization-password-id"
+        ).innerHTML;
+        const data = {
+          newPassword: newPassword,
+          organizationPasswordId: organizationPasswordId,
+        };
 
         // Send request to backend to update password in DB
         const response = await fetch("/admin", {
@@ -138,9 +143,15 @@ deletePasswordButtons.forEach((button) => {
       // Get the password card element and remove it with fade-out animation
       const passwordCard = button.closest(".dashboard__passwords-card");
       // Get the organization password id and website id from hidden html elements
-      const organizationPasswordId = passwordCard.querySelector(".hidden-organization-password-id").innerHTML;
-      const websiteId = passwordCard.querySelector(".hidden-website-id").innerHTML;
-      const data = {organizationPasswordId: organizationPasswordId, websiteId: websiteId};
+      const organizationPasswordId = passwordCard.querySelector(
+        ".hidden-organization-password-id"
+      ).innerHTML;
+      const websiteId =
+        passwordCard.querySelector(".hidden-website-id").innerHTML;
+      const data = {
+        organizationPasswordId: organizationPasswordId,
+        websiteId: websiteId,
+      };
 
       const response = await fetch("/admin", {
         method: "DELETE",
@@ -228,86 +239,6 @@ addModalForm.addEventListener("submit", async function (event) {
   }
 });
 
-// Edit User
-const editUserModal = document.getElementById("editUserModal");
-const editUserButtons = document.querySelectorAll(".edit-user");
-const cancelEditUserButton = editUserModal.querySelector(".cancel-edit-user");
-
-editUserButtons.forEach((button) => {
-  button.addEventListener("click", () => {
-    // Show the editUserModal
-    showModal(editUserModal);
-
-    // Get the targeted username element
-    const targetUsernameElement =
-      button.parentElement.parentElement.previousElementSibling;
-
-    // Add submit event listener to the edit user form
-    editUserModal.querySelector("form").addEventListener("submit", (event) => {
-      // Prevent the form from submitting and refreshing the page
-      event.preventDefault();
-
-      // Update the user details (username and password)
-      updateUserDetails(targetUsernameElement);
-
-      // Hide the editUserModal with fade-out animation
-      hideModalWithFadeOut(editUserModal);
-    });
-
-    // Add click event listener to the cancel button
-    cancelEditUserButton.addEventListener("click", () => {
-      // Hide the editUserModal with fade-out animation
-      hideModalWithFadeOut(editUserModal);
-    });
-
-    // Add click event listener to the window (outside the modal)
-    window.addEventListener("click", (event) => {
-      // Check if the clicked target is the editUserModal
-      if (event.target === editUserModal) {
-        // Hide the editUserModal with fade-out animation
-        hideModalWithFadeOut(editUserModal);
-      }
-    });
-  });
-});
-
-// Function to update user details
-function updateUserDetails(targetUsernameElement) {
-  const editUsernameInput = document.getElementById("editUsername");
-  const editUserPasswordInput = document.getElementById("editUserPassword");
-  const confirmEditUserPasswordInput = document.getElementById(
-    "confirmEditUserPassword"
-  );
-
-  // Check if both password fields are filled and match
-  const passwordFieldsFilled =
-    editUserPasswordInput.value !== "" &&
-    confirmEditUserPasswordInput.value !== "";
-  const passwordFieldsMatch =
-    editUserPasswordInput.value === confirmEditUserPasswordInput.value;
-
-  // If both password fields are filled but don't match, show an error message
-  if (passwordFieldsFilled && !passwordFieldsMatch) {
-    alert("User password and confirm password must match");
-    return;
-  }
-
-  // Update the username on the page (you should also update it in the database)
-  targetUsernameElement.textContent = editUsernameInput.value;
-
-  // Update the password only if both password fields are filled and match
-  if (passwordFieldsFilled && passwordFieldsMatch) {
-    const passwordElement =
-      targetUsernameElement.nextElementSibling.querySelector(
-        ".hidden-password"
-      );
-    passwordElement.textContent = editUserPasswordInput.value;
-  }
-
-  // Hide the editUserModal with fade-out animation
-  hideModalWithFadeOut(editUserModal);
-}
-
 // Delete User
 const deleteUserButtons = document.querySelectorAll(".delete-user");
 const deleteUserModal = document.getElementById("deleteUserModal");
@@ -318,27 +249,56 @@ const cancelDeleteUserButton = deleteUserModal.querySelector(
   ".cancel-delete-user"
 );
 
+let userIdToDelete;
+
 deleteUserButtons.forEach((button) => {
   button.addEventListener("click", () => {
+    // Get the user ID to delete
+    userIdToDelete = button.closest(".dashboard__passwords-card").dataset
+      .userId;
+
     // Show the deleteUserModal with fade-in animation
     showModal(deleteUserModal);
-
-    // When the confirm delete button is clicked, delete the password card and hide the deleteUserModal with fade-out animation
-    confirmDeleteUserButton.addEventListener("click", () => {
-      // Get the password card element and remove it with fade-out animation
-      const passwordCard = button.closest(".dashboard__passwords-card");
-      passwordCard.classList.add("fade-out");
-      setTimeout(() => {
-        passwordCard.remove();
-      }, 500);
-
-      // Hide the deleteUserModal with fade-out animation
-      hideModalWithFadeOut(deleteUserModal);
-    });
-
-    // When the cancel button is clicked, hide the deleteUserModal with fade-out animation
-    cancelDeleteUserButton.addEventListener("click", () => {
-      hideModalWithFadeOut(deleteUserModal);
-    });
   });
 });
+
+// When the confirm delete button is clicked, delete the user card and hide the deleteUserModal with fade-out animation
+confirmDeleteUserButton.addEventListener("click", async () => {
+  if (userIdToDelete) {
+    // Get the user card element and remove it with fade-out animation
+    const userCard = document.querySelector(
+      `[data-user-id="${userIdToDelete}"]`
+    );
+    userCard.classList.add("fade-out");
+    setTimeout(() => {
+      userCard.remove();
+    }, 500);
+
+    // Hide the deleteUserModal with fade-out animation
+    hideModalWithFadeOut(deleteUserModal);
+    await deleteUserFromDatabase(userIdToDelete);
+  }
+});
+
+// When the cancel button is clicked, hide the deleteUserModal with fade-out animation
+cancelDeleteUserButton.addEventListener("click", () => {
+  hideModalWithFadeOut(deleteUserModal);
+});
+
+const deleteUserFromDatabase = async (userId) => {
+  try {
+    const response = await fetch("/admin", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId: userId }),
+    });
+
+    if (response.status !== 200) {
+      throw new Error("Error deleting user from the database");
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
