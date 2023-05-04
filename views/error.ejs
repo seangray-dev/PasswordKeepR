@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>PasswordKeepR | Error</title>
+
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
+  <link rel="stylesheet" href="/vendor/border-box.css" />
+  <link rel="stylesheet" href="/styles/main.css" />
+  <link rel="stylesheet" href="/styles/layout.css" />
+
+  <!-- fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+
+  <!-- font-awesome-icons -->
+  <script src="https://kit.fontawesome.com/be692c047d.js" crossorigin="anonymous"></script>
+</head>
+
+<body class="error-page">
+  <nav class="nav">
+    <div class="nav__container container">
+      <a href="/" class="nav__logo">
+        Password<span class="nav__logo-light">ErroR</span>
+      </a>
+    </div>
+  </nav>
+  <main class="container">
+    <h1 class="error-page__title">Error</h1>
+    <section class="error-page__message">
+      <p>
+        <%= message %>
+      </p>
+    </section>
+  </main>
+</body>
+
+</html>
