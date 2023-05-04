@@ -103,20 +103,34 @@ router.delete("/", async (req, res) => {
   if (!(await getUserById(req.session.userId))) {
     return res.send("Please login to delete password!");
   }
+
   // Delete organization password and website from DB
   const organizationPasswordId = req.body.organizationPasswordId;
   const websiteId = req.body.websiteId;
-  await deleteOrganizationPasswordAndWebsite(organizationPasswordId, websiteId);
 
+  if (websiteId && organizationPasswordId) {
+    await deleteOrganizationPasswordAndWebsite(
+      organizationPasswordId,
+      websiteId
+    );
+
+    return res.sendStatus(200);
+  } else {
+    console.log(
+      "Failed to delete password for:",
+      websiteId,
+      organizationPasswordId
+    );
+  }
+
+  // Delete user from the database
   if (req.body.userId) {
-    // Delete user from the database
     const userIdToDelete = req.body.userId;
     await deleteUserById(userIdToDelete);
+    return res.sendStatus(200);
   } else {
     return res.status(400).send("Invalid request data");
   }
-
-  return res.sendStatus(200);
 });
 
 module.exports = router;
