@@ -15,12 +15,10 @@
 
 
   <!-- fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
 
   <!-- font-awesome-icons -->
   <script src="https://kit.fontawesome.com/be692c047d.js" crossorigin="anonymous"></script>
@@ -36,8 +34,8 @@
         Password<span class="nav__logo-light">KeepR</span>
       </a>
       <div class="nav-links">
-        <a href="/dashboard"><button class="btn-secondary">Dashboard</button></a>
-        <a href="/"><button class="btn-secondary">Logout</button></a>
+        <a href="/dashboard"><button class="btn-secondary btn-dashboard">Dashboard</button></a>
+        <a href="/logout"><button class="btn-secondary">Logout</button></a>
       </div>
     </div>
   </nav>
@@ -62,6 +60,10 @@
           <ul class="dashboard__passwords-cards">
             <% organizationPasswords.forEach((each)=> { %>
               <li class="dashboard__passwords-card">
+                <!-- hidden organization password id and website id for deleting and editing purpose -->
+                <!-- NOTE: Please do not break line for the two hidden span below, or the values for user password id and website id will not be correctly retrieved -->
+                <span class="hidden-organization-password-id hidden"><%= each.org_password_id %></span>
+                <span class="hidden-website-id hidden"><%= each.website_id %></span>
                 <div class="dashboard__passwords-card-row-1">
                   <span class="dashboard__passwords-username">
                     <%= each.username %>

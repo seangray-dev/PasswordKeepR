@@ -21,6 +21,12 @@ copyToClipboardButton.addEventListener("click", () => {
     .catch((err) => alert("Copy to clipboard failed!"));
 });
 
+// Function for the return button
+function goBack() {
+  window.history.back();
+}
+
+
 // To display character length and password strength when user select value from the range slider:
 const characterLengthInput = document.querySelector(".input-char-length input");
 const characterLengthOutput = document.querySelector(".char-length-num");

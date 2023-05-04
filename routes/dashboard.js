@@ -20,7 +20,7 @@ router.use(
 
 router.get("/", async (req, res) => {
   if (!(await getUserById(req.session.userId))) {
-    return res.send("Please login to view your Dashboard!");
+    return res.render("error", { message: "Please login to view your Dashboard!" });
   }
 
   // Retrieve user passwords and organization passwords/name from DB
@@ -60,7 +60,7 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
   if (!(await getUserById(req.session.userId))) {
-    return res.send("Please login to add new password!");
+    return res.render("error", { message: "Please login to add a new password!" });
   }
 
   //Add new password to DB
@@ -76,7 +76,7 @@ router.post("/", async (req, res) => {
 
 router.put("/", async (req, res) => {
   if (!(await getUserById(req.session.userId))) {
-    return res.send("Please login to edit password!");
+    return res.render("error", { message: "Please login to edit a password!" });
   }
 
   // Update user password in DB
@@ -89,7 +89,7 @@ router.put("/", async (req, res) => {
 
 router.delete("/", async (req, res) => {
   if (!(await getUserById(req.session.userId))) {
-    return res.send("Please login to delete password!");
+    return res.render("error", { message: "Please login to delete a password!" });
   }
 
   // Delete password and website from DB

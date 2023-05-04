@@ -23,7 +23,6 @@
 
   &-links {
     display: flex;
-    gap: 1rem;
   }
 
   &__container {
@@ -40,7 +39,28 @@
       font-weight: 300;
     }
   }
+
+  .nav-links {
+    display: flex;
+  }
+
+  .btn-generator {
+    padding-left: 1rem;
+    margin-right: 1rem;
+  }
+
+  .btn-admin {
+    padding-left: 1rem;
+    margin-right: 1rem;
+  }
+
+  .btn-dashboard {
+    padding-left: 1rem;
+    margin-right: 1rem;
+  }
 }
+
+
 
 .header {
   background-color: var(--color-heading);
@@ -648,6 +668,21 @@
         font-size: 12px;
       }
     }
+
+  }
+
+  .btn-secondary {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 10px;
+    font-size: 1rem;
+    font-family: var(--font-heading);
+    color: white;
+
+    @media (min-width: 768px) {
+      font-size: 1.25rem;
+    }
   }
 
   .strength-bars {
@@ -809,4 +844,28 @@
   margin-top: 1rem;
   display: flex;
   justify-content: flex-end;
+}
+
+
+// Error Page
+
+.error-page {
+  background-color: var(--color-ghostWhite);
+
+  &__title {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 1.6479rem + 1.5023vw, 3rem);
+    text-align: center;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+    color: var(--color-body);
+  }
+
+  &__message {
+    font-weight: 400;
+    font-size: 2rem;
+    text-align: center;
+    color: var(--color-body);
+    padding-bottom: 2rem;
+  }
 }
