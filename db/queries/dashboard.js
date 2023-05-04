@@ -130,7 +130,7 @@ const deleteUserPasswordAndWebsite = async(userPasswordId, websiteId) => {
   return db.query(
     `
     DELETE FROM websites
-    WHERE id = $1
+    WHERE id = $1 AND id NOT IN (SELECT website_id FROM user_passwords)
     `,
     [websiteId]
     );
