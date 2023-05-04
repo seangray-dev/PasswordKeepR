@@ -4,15 +4,16 @@ const db = require("../db/connection");
 const {
   getUserById,
   getOrganizationPasswordsById,
-  getOrganizationNameById
+  getOrganizationNameById,
 } = require("../db/queries/dashboard");
 const {
   getUsersByOrganizationId,
   getOrganizationIdByUserId,
   editOrganizationPassword,
   deleteOrganizationPasswordAndWebsite,
-  createNewOrganizationPassword
- } = require("../db/queries/organizations");
+  createNewOrganizationPassword,
+  deleteUserById,
+} = require("../db/queries/organizations");
 
 router.get("/", async (req, res) => {
   if (!req.session.userId) {
@@ -36,12 +37,19 @@ router.get("/", async (req, res) => {
     if (isAdmin) {
       const organizationPasswords = await getOrganizationPasswordsById(userId);
       const organizationName = await getOrganizationNameById(userId);
-      const capitalizedOrganizationName = capitalizeFirstLetter(organizationName.name);
+      const capitalizedOrganizationName = capitalizeFirstLetter(
+        organizationName.name
+      );
       const allOrganizationUsers = await getUsersByOrganizationId(userId);
-      const organizationUsers = allOrganizationUsers.filter(user => !user.is_admin);
+      const organizationUsers = allOrganizationUsers.filter(
+        (user) => !user.is_admin
+      );
       const data = {
         organizationPasswords,
-        organizationName: { ...organizationName, name: capitalizedOrganizationName },
+        organizationName: {
+          ...organizationName,
+          name: capitalizedOrganizationName,
+        },
         organizationUsers,
         isAdmin,
       };
@@ -62,13 +70,18 @@ router.post("/", async (req, res) => {
   //Add new organization password to DB
   const organizationId = await getOrganizationIdByUserId(req.session.userId);
   if (!organizationId) {
-    throw new Error("Organization id not found!")
+    throw new Error("Organization id not found!");
   }
 
   const userName = req.body.username;
   const website = req.body.website;
   const password = req.body.password;
-  await createNewOrganizationPassword(organizationId, userName, website, password);
+  await createNewOrganizationPassword(
+    organizationId,
+    userName,
+    website,
+    password
+  );
 
   res.redirect("/admin");
 });
@@ -93,9 +106,26 @@ router.delete("/", async (req, res) => {
   // Delete organization password and website from DB
   const organizationPasswordId = req.body.organizationPasswordId;
   const websiteId = req.body.websiteId;
-  await deleteOrganizationPasswordAndWebsite(organizationPasswordId, websiteId)
+  await deleteOrganizationPasswordAndWebsite(organizationPasswordId, websiteId);
+
+  if (req.body.userId) {
+    // Delete user from the database
+    const userIdToDelete = req.body.userId;
+    await deleteUserById(userIdToDelete);
+  } else {
+    return res.status(400).send("Invalid request data");
+  }
 
   return res.sendStatus(200);
 });
+
+// // Delete user from organization and website
+// router.delete("/", async (req, res) => {
+//   if (!(await getUserById(req.session.userId))) {
+//     return res.send("Please login to delete user!");
+//   }
+
+//   return res.sendStatus(200);
+// });
 
 module.exports = router;

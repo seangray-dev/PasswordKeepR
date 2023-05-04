@@ -124,7 +124,7 @@
           <h3 class="dashboard__heading-category"></h3>
           <ul class="dashboard__passwords-cards">
             <% organizationUsers.forEach((each)=> { %>
-            <li class="dashboard__passwords-card">
+            <li class="dashboard__passwords-card" data-user-id="<%= each.id %>">
               <div class="dashboard__passwords-card-row-1">
                 <span class="dashboard__passwords-username">
                   <%= each.email %>

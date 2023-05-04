@@ -77,8 +77,13 @@ editPasswordButtons.forEach((button, index) => {
 
         // Get the password card element, then get the organization password id from hidden html elements
         const passwordCard = button.closest(".dashboard__passwords-card");
-        const organizationPasswordId = passwordCard.querySelector(".hidden-organization-password-id").innerHTML;
-        const data = {newPassword: newPassword, organizationPasswordId: organizationPasswordId};
+        const organizationPasswordId = passwordCard.querySelector(
+          ".hidden-organization-password-id"
+        ).innerHTML;
+        const data = {
+          newPassword: newPassword,
+          organizationPasswordId: organizationPasswordId,
+        };
 
         // Send request to backend to update password in DB
         const response = await fetch("/admin", {
@@ -138,9 +143,15 @@ deletePasswordButtons.forEach((button) => {
       // Get the password card element and remove it with fade-out animation
       const passwordCard = button.closest(".dashboard__passwords-card");
       // Get the organization password id and website id from hidden html elements
-      const organizationPasswordId = passwordCard.querySelector(".hidden-organization-password-id").innerHTML;
-      const websiteId = passwordCard.querySelector(".hidden-website-id").innerHTML;
-      const data = {organizationPasswordId: organizationPasswordId, websiteId: websiteId};
+      const organizationPasswordId = passwordCard.querySelector(
+        ".hidden-organization-password-id"
+      ).innerHTML;
+      const websiteId =
+        passwordCard.querySelector(".hidden-website-id").innerHTML;
+      const data = {
+        organizationPasswordId: organizationPasswordId,
+        websiteId: websiteId,
+      };
 
       const response = await fetch("/admin", {
         method: "DELETE",
@@ -318,27 +329,58 @@ const cancelDeleteUserButton = deleteUserModal.querySelector(
   ".cancel-delete-user"
 );
 
+let userIdToDelete;
+
 deleteUserButtons.forEach((button) => {
   button.addEventListener("click", () => {
+    // Get the user ID to delete
+    userIdToDelete = button.closest(".dashboard__passwords-card").dataset
+      .userId;
+
     // Show the deleteUserModal with fade-in animation
     showModal(deleteUserModal);
-
-    // When the confirm delete button is clicked, delete the password card and hide the deleteUserModal with fade-out animation
-    confirmDeleteUserButton.addEventListener("click", () => {
-      // Get the password card element and remove it with fade-out animation
-      const passwordCard = button.closest(".dashboard__passwords-card");
-      passwordCard.classList.add("fade-out");
-      setTimeout(() => {
-        passwordCard.remove();
-      }, 500);
-
-      // Hide the deleteUserModal with fade-out animation
-      hideModalWithFadeOut(deleteUserModal);
-    });
-
-    // When the cancel button is clicked, hide the deleteUserModal with fade-out animation
-    cancelDeleteUserButton.addEventListener("click", () => {
-      hideModalWithFadeOut(deleteUserModal);
-    });
   });
 });
+
+// When the confirm delete button is clicked, delete the user card and hide the deleteUserModal with fade-out animation
+confirmDeleteUserButton.addEventListener("click", async () => {
+  if (userIdToDelete) {
+    console.log("Deleting user with ID:", userIdToDelete);
+    // Get the user card element and remove it with fade-out animation
+    const userCard = document.querySelector(
+      `[data-user-id="${userIdToDelete}"]`
+    );
+    userCard.classList.add("fade-out");
+    setTimeout(() => {
+      userCard.remove();
+    }, 500);
+
+    // Hide the deleteUserModal with fade-out animation
+    hideModalWithFadeOut(deleteUserModal);
+    await deleteUserFromDatabase(userIdToDelete);
+  }
+});
+
+// When the cancel button is clicked, hide the deleteUserModal with fade-out animation
+cancelDeleteUserButton.addEventListener("click", () => {
+  hideModalWithFadeOut(deleteUserModal);
+});
+
+const deleteUserFromDatabase = async (userId) => {
+  console.log("deleteUserFromDatabase:", userId);
+  try {
+    const response = await fetch("/admin", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId: userId }),
+    });
+
+    if (response.status !== 200) {
+      throw new Error("Error deleting user from the database");
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
