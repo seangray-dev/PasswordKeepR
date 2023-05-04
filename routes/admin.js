@@ -10,6 +10,8 @@ const {
   getUsersByOrganizationId,
   getOrganizationIdByUserId,
   editOrganizationPassword,
+  editOrganizationPasswordAndUser,
+  editOrganizationPasswordUser,
   deleteOrganizationPasswordAndWebsite,
   createNewOrganizationPassword,
   deleteUserById,
@@ -90,11 +92,28 @@ router.put("/", async (req, res) => {
   if (!(await getUserById(req.session.userId))) {
     return res.send("Please login to edit password!");
   }
-
-  // Update organization password in DB
+  const newUsername = req.body.newUsername;
   const newPassword = req.body.newPassword;
   const organizationPasswordId = req.body.organizationPasswordId;
-  await editOrganizationPassword(newPassword, organizationPasswordId);
+
+  // if new username is empty
+  if (!newUsername && newPassword && organizationPasswordId) {
+    await editOrganizationPassword(newPassword, organizationPasswordId);
+  }
+
+  // if password fields are empty
+  if (!newPassword) {
+    await editOrganizationPasswordUser(newUsername, organizationPasswordId);
+  }
+
+  // if all fields are present
+  if (newUsername && newPassword) {
+    await editOrganizationPasswordAndUser(
+      newUsername,
+      newPassword,
+      organizationPasswordId
+    );
+  }
 
   return res.sendStatus(200);
 });

@@ -110,6 +110,36 @@ const editOrganizationPassword = (newPassword, organizationPasswordId) => {
   );
 };
 
+//Edit organization password
+const editOrganizationPasswordUser = (newUser, organizationPasswordId) => {
+  return db.query(
+    `
+    UPDATE org_passwords
+    SET username = $1
+    WHERE id = $2
+    `,
+    [newUser, organizationPasswordId]
+  );
+};
+
+const editOrganizationPasswordAndUser = (
+  newUser,
+  newPassword,
+  organizationPasswordId
+) => {
+  console.log(newUser, encrypt(newPassword), organizationPasswordId);
+
+  return db.query(
+    `
+    UPDATE org_passwords
+    SET username = $1,
+    password = $2
+    WHERE id = $3
+    `,
+    [newUser, encrypt(newPassword), organizationPasswordId]
+  );
+};
+
 // Create new organization password
 const createNewOrganizationPassword = async (
   organizationId,
@@ -189,6 +219,8 @@ module.exports = {
   getOrganizationIdByUserId,
   deleteOrganizationPasswordAndWebsite,
   editOrganizationPassword,
+  editOrganizationPasswordUser,
+  editOrganizationPasswordAndUser,
   createNewOrganizationPassword,
   deleteUserById,
   updateUserPassword,

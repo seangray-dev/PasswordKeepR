@@ -66,6 +66,7 @@ editPasswordButtons.forEach((button, index) => {
       .addEventListener("submit", async (event) => {
         event.preventDefault();
 
+        const newUsername = document.getElementById("editUsername").value;
         const newPassword = document.getElementById("newPassword").value;
         const confirmNewPassword =
           document.getElementById("confirmNewPassword").value;
@@ -81,6 +82,7 @@ editPasswordButtons.forEach((button, index) => {
           ".hidden-organization-password-id"
         ).innerHTML;
         const data = {
+          newUsername: newUsername,
           newPassword: newPassword,
           organizationPasswordId: organizationPasswordId,
         };
