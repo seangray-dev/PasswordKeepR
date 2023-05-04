@@ -366,7 +366,6 @@ cancelDeleteUserButton.addEventListener("click", () => {
 });
 
 const deleteUserFromDatabase = async (userId) => {
-  console.log("deleteUserFromDatabase:", userId);
   try {
     const response = await fetch("/admin", {
       method: "DELETE",
