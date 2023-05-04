@@ -825,9 +825,6 @@
 
 .error-page {
   background-color: var(--color-ghostWhite);
-  font-family: var(--font-body);
-  font-weight: 700;
-  color: var(--color-heading);
 
   &__title {
     font-family: var(--font-heading);
@@ -840,7 +837,7 @@
 
   &__message {
     font-weight: 400;
-    font-size: 1rem;
+    font-size: 2rem;
     text-align: center;
     color: var(--color-body);
     padding-bottom: 2rem;

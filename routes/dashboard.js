@@ -20,7 +20,7 @@ router.use(
 
 router.get("/", async (req, res) => {
   if (!(await getUserById(req.session.userId))) {
-    return res.send("Please login to view your Dashboard!");
+    return res.render("error", { message: "Please login to view your Dashboard!" });
   }
 
   // Retrieve user passwords and organization passwords/name from DB
