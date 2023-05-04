@@ -1,230 +1,256 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <title>PasswordKeepR | Dashboard</title>
 
-<head>
-  <title>PasswordKeepR | Dashboard</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" />
+    <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="stylesheet" href="/styles/layout.css" />
 
-  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
-  <link rel="stylesheet" href="/vendor/border-box.css" />
-  <link rel="stylesheet" href="/styles/main.css" />
-  <link rel="stylesheet" href="/styles/layout.css" />
+    <!-- fonts -->
 
-  <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap"
-    rel="stylesheet" />
+    <!-- font-awesome-icons -->
+    <script
+      src="https://kit.fontawesome.com/be692c047d.js"
+      crossorigin="anonymous"
+    ></script>
 
-  <!-- font-awesome-icons -->
-  <script src="https://kit.fontawesome.com/be692c047d.js" crossorigin="anonymous"></script>
+    <script src="/vendor/jquery-3.0.0.js"></script>
+    <script defer src="/scripts/dashboard-client.js"></script>
+  </head>
 
-  <script src="/vendor/jquery-3.0.0.js"></script>
-  <script defer src="/scripts/dashboard-client.js"></script>
-</head>
-
-<body class="dashboard">
-  <nav class="nav">
-    <div class="nav__container container">
-      <a href="/" class="nav__logo">
-        Password<span class="nav__logo-light">KeepR</span>
-      </a>
-      <!-- handle logout feature -->
-      <div class="nav-links">
-        <% if (locals.isAdmin) { %>
-          <a href="/admin"><button class="btn-secondary btn-admin">Admin page</button></a>
+  <body class="dashboard">
+    <nav class="nav">
+      <div class="nav__container container">
+        <a href="/" class="nav__logo">
+          Password<span class="nav__logo-light">KeepR</span>
+        </a>
+        <!-- handle logout feature -->
+        <div class="nav-links">
+          <% if (locals.isAdmin) { %>
+          <a href="/admin"><button class="btn-secondary">Admin page</button></a>
           <% } %>
-            <a href="/logout"><button class="btn-secondary">Logout</button></a>
-      </div>
-    </div>
-  </nav>
-  <main class="container">
-    <h1 class="dashboard__title">Dashboard</h1>
-    <section class="dashboard__passwords">
-      <header class="dashboard__passwords-header">
-        <h2 class="dashboard__heading">Passwords</h2>
-        <div>
-          <!-- add filter functionality here -->
-          <button class="dashboard__passwords-add btn-primary">
-            Add New
-          </button>
+          <a href="/"><button class="btn-secondary">Logout</button></a>
         </div>
-      </header>
-      <!-- display organization passwords -->
-      <% if (organizationPasswords.length> 0) { %>
+      </div>
+    </nav>
+    <main class="container">
+      <h1 class="dashboard__title">Dashboard</h1>
+      <section class="dashboard__passwords">
+        <header class="dashboard__passwords-header">
+          <h2 class="dashboard__heading">Passwords</h2>
+          <div>
+            <!-- add filter functionality here -->
+            <button class="dashboard__passwords-add btn-primary">
+              Add New
+            </button>
+          </div>
+        </header>
+        <!-- display organization passwords -->
+        <% if (organizationPasswords.length> 0) { %>
         <div class="dashboard__passwords-category">
           <h3 class="dashboard__heading-category">
             <%= organizationName.name %> Passwords
           </h3>
           <ul class="dashboard__passwords-cards">
             <% organizationPasswords.forEach((each)=> { %>
-              <li class="dashboard__passwords-card">
-                <div class="dashboard__passwords-card-row-1">
-                  <span class="dashboard__passwords-username">
-                    <%= each.username %>
-                  </span>
-                  <a href="<%= each.website %>" target="_blank" class="dashboard__passwords-website">
-                    <%= each.website %>
-                  </a>
+            <li class="dashboard__passwords-card">
+              <div class="dashboard__passwords-card-row-1">
+                <span class="dashboard__passwords-username">
+                  <%= each.username %>
+                </span>
+                <a
+                  href="<%= each.website %>"
+                  target="_blank"
+                  class="dashboard__passwords-website"
+                >
+                  <%= each.website %>
+                </a>
+              </div>
+              <div class="dashboard__passwords-card-row-2">
+                <span class="hidden-password hidden">
+                  <%= each.password %>
+                </span>
+                <span class="show-password">******</span>
+                <div class="dashboard__passwords-buttons">
+                  <button class="show-password-btn">
+                    <i class="fa-solid fa-eye eye-show fa-lg"></i>
+                    <i class="fa-solid fa-eye-slash fa-lg eye-hide hidden"></i>
+                  </button>
+                  <button class="copy-to-clipboard">
+                    <i class="fa-solid fa-clipboard fa-lg"></i>
+                    <i class="fa-solid fa-check fa-lg hidden"></i>
+                  </button>
                 </div>
-                <div class="dashboard__passwords-card-row-2">
-                  <span class="hidden-password hidden">
-                    <%= each.password %>
-                  </span>
-                  <span class="show-password">******</span>
-                  <div class="dashboard__passwords-buttons">
-                    <button class="show-password-btn">
-                      <i class="fa-solid fa-eye eye-show fa-lg"></i>
-                      <i class="fa-solid fa-eye-slash fa-lg eye-hide hidden"></i>
-                    </button>
-                    <button class="copy-to-clipboard">
-                      <i class="fa-solid fa-clipboard fa-lg"></i>
-                      <i class="fa-solid fa-check fa-lg hidden"></i>
-                    </button>
-                  </div>
-                </div>
-              </li>
-              <% }); %>
+              </div>
+            </li>
+            <% }); %>
           </ul>
         </div>
         <% }; %>
-          <!-- display user passwords by category -->
-          <% if (groupedUserPasswords.length> 0) { %> <% groupedUserPasswords.forEach((each)=> { %>
-              <div class="dashboard__passwords-category">
-                <h3 class="dashboard__heading-category">
-                  <%= each.category %>
-                </h3>
-                <ul class="dashboard__passwords-cards">
-                  <% each.passwords.forEach((eachPassword)=> { %>
-                    <li class="dashboard__passwords-card">
-                      <!-- hidden user password id and website id for deleting and editing purpose -->
-                      <!-- NOTE: Please do not break line for the two hidden span below, or the values for user password id and website id will not be correctly retrieved -->
-                      <span class="hidden-user-password-id hidden"><%= eachPassword.user_password_id %></span>
-                      <span class="hidden-website-id hidden"><%= eachPassword.website_id %></span>
-                      <div class="dashboard__passwords-card-row-1">
-                        <span class="dashboard__passwords-username">
-                          <%= eachPassword.username %>
-                        </span>
-                        <a href="<%= eachPassword.website %>" target="_blank" class="dashboard__passwords-website">
-                          <%= eachPassword.website %>
-                        </a>
-                      </div>
-                      <div class="dashboard__passwords-card-row-2">
-                        <span class="hidden-password hidden">
-                          <%= eachPassword.password %>
-                        </span>
-                        <span class="show-password">******</span>
-                        <div class="dashboard__passwords-buttons">
-                          <button class="show-password-btn">
-                            <i class="fa-solid fa-eye eye-show fa-lg"></i>
-                            <i class="fa-solid fa-eye-slash fa-lg eye-hide hidden"></i>
-                          </button>
-                          <button class="copy-to-clipboard">
-                            <i class="fa-solid fa-clipboard fa-lg"></i>
-                            <i class="fa-solid fa-check fa-lg hidden"></i>
-                          </button>
-                          <button class="edit-password">
-                            <i class="fa-solid fa-pencil fa-lg"></i>
-                          </button>
-                          <button class="delete-password">
-                            <i class="fa-solid fa-trash fa-lg"></i>
-                          </button>
-                        </div>
-                      </div>
-                    </li>
-                    <% }); %>
-                </ul>
+        <!-- display user passwords by category -->
+        <% if (groupedUserPasswords.length> 0) { %> <%
+        groupedUserPasswords.forEach((each)=> { %>
+        <div class="dashboard__passwords-category">
+          <h3 class="dashboard__heading-category"><%= each.category %></h3>
+          <ul class="dashboard__passwords-cards">
+            <% each.passwords.forEach((eachPassword)=> { %>
+            <li class="dashboard__passwords-card">
+              <!-- hidden user password id and website id for deleting and editing purpose -->
+              <span class="hidden-user-password-id hidden"
+                ><%= eachPassword.user_password_id %></span
+              >
+              <span class="hidden-website-id hidden"
+                ><%= eachPassword.website_id %></span
+              >
+              <div class="dashboard__passwords-card-row-1">
+                <span class="dashboard__passwords-username">
+                  <%= eachPassword.username %>
+                </span>
+                <a
+                  href="<%= eachPassword.website %>"
+                  target="_blank"
+                  class="dashboard__passwords-website"
+                >
+                  <%= eachPassword.website %>
+                </a>
               </div>
-              <% }); %>
-                <% }; %>
-    </section>
+              <div class="dashboard__passwords-card-row-2">
+                <span class="hidden-password hidden">
+                  <%= eachPassword.password %>
+                </span>
+                <span class="show-password">******</span>
+                <div class="dashboard__passwords-buttons">
+                  <button class="show-password-btn">
+                    <i class="fa-solid fa-eye eye-show fa-lg"></i>
+                    <i class="fa-solid fa-eye-slash fa-lg eye-hide hidden"></i>
+                  </button>
+                  <button class="copy-to-clipboard">
+                    <i class="fa-solid fa-clipboard fa-lg"></i>
+                    <i class="fa-solid fa-check fa-lg hidden"></i>
+                  </button>
+                  <button class="edit-password">
+                    <i class="fa-solid fa-pencil fa-lg"></i>
+                  </button>
+                  <button class="delete-password">
+                    <i class="fa-solid fa-trash fa-lg"></i>
+                  </button>
+                </div>
+              </div>
+            </li>
+            <% }); %>
+          </ul>
+        </div>
+        <% }); %> <% }; %>
+      </section>
 
-    <!-- Edit Password Modal -->
-    <div class="modal" id="editPasswordModal">
-      <div class="modal-content">
-        <h2 class="modal-title">Edit Password</h2>
-        <form class="modal-form">
-          <div class="form-group">
-            <label for="newPassword">New Password:</label>
-            <input type="password" id="newPassword" name="newPassword" required />
-            <label for="confirmNewPassword">Confirm New Password:</label>
-            <input type="password" id="confirmNewPassword" name="confirmNewPassword" required />
-          </div>
+      <!-- Edit Password Modal -->
+      <div class="modal" id="editPasswordModal">
+        <div class="modal-content">
+          <h2 class="modal-title">Edit Password</h2>
+          <form class="modal-form">
+            <div class="form-group">
+              <label for="newPassword">New Password:</label>
+              <input
+                type="password"
+                id="newPassword"
+                name="newPassword"
+                required
+              />
+              <label for="confirmNewPassword">Confirm New Password:</label>
+              <input
+                type="password"
+                id="confirmNewPassword"
+                name="confirmNewPassword"
+                required
+              />
+            </div>
+            <div class="modal-form-buttons">
+              <div>
+                <button type="button" class="cancel-edit-password btn-red">
+                  Cancel
+                </button>
+                <button class="btn-primary" type="submit">Save</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Delete Password Modal -->
+      <div class="modal" id="deletePasswordModal">
+        <div class="modal-content">
+          <h2 class="modal-title">Delete Password</h2>
+          <p>Are you sure you want to delete this password?</p>
+          <p>This action cannot be undone.</p>
           <div class="modal-form-buttons">
             <div>
-              <button type="button" class="cancel-edit-password btn-red">
+              <button type="button" class="cancel-delete-password btn-primary">
                 Cancel
               </button>
-              <button class="btn-primary" type="submit">Save</button>
+              <button class="btn-red confirm-delete-password" type="button">
+                Delete
+              </button>
             </div>
-          </div>
-        </form>
-      </div>
-    </div>
-
-    <!-- Delete Password Modal -->
-    <div class="modal" id="deletePasswordModal">
-      <div class="modal-content">
-        <h2 class="modal-title">Delete Password</h2>
-        <p>Are you sure you want to delete this password?</p>
-        <p>This action cannot be undone.</p>
-        <div class="modal-form-buttons">
-          <div>
-            <button type="button" class="cancel-delete-password btn-primary">
-              Cancel
-            </button>
-            <button class="btn-red confirm-delete-password" type="button">
-              Delete
-            </button>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- New Password Modal -->
-    <div class="modal" id="newPasswordModal">
-      <div class="modal-content">
-        <h2 class="modal-title">New Password</h2>
-        <form class="modal-form" action="/dashboard" method="POST">
-          <div class="form-group">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required />
-            <label for="website">Website:</label>
-            <input type="text" id="website" name="website" required />
-            <div class="form-group-password">
-              <label for="password">Password:</label>
-              <input type="password" id="password" name="password" required />
-              <a class="btn-secondary generator-link" href="/generator">Generate</a>
-            </div>
-            <!-- If user wants to add new category, and selects add new it should add it as an option to the select input -->
+      <!-- New Password Modal -->
+      <div class="modal" id="newPasswordModal">
+        <div class="modal-content">
+          <h2 class="modal-title">New Password</h2>
+          <form class="modal-form" action="/dashboard" method="POST">
+            <div class="form-group">
+              <label for="username">Username:</label>
+              <input type="text" id="username" name="username" required />
+              <label for="website">Website:</label>
+              <input type="text" id="website" name="website" required />
+              <div class="form-group-password">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required />
+                <a class="btn-secondary generator-link" href="/generator"
+                  >Generate</a
+                >
+              </div>
+              <!-- If user wants to add new category, and selects add new it should add it as an option to the select input -->
 
-            <label for="category">Category:</label>
-            <select id="category" name="category" required>
-              <option value="" disabled selected>Select a category</option>
-              <option value="add new">Add New</option>
-              <option value="Social">Social</option>
-              <option value="Work">Work</option>
-              <option value="Entertainment">Entertainment</option>
-            </select>
-            <input type="text" id="newCategoryInput" name="newCategoryInput" class="hidden"
-              placeholder="Enter new category" />
-          </div>
-          <div class="modal-form-buttons">
-            <div>
-              <button type="button" class="cancel-new-password btn-red">
-                Cancel
-              </button>
-              <button class="btn-primary" type="submit">Save</button>
+              <label for="category">Category:</label>
+              <select
+                class="category__input"
+                id="category"
+                name="category"
+                required
+              >
+                <option value="" disabled selected>Select a category</option>
+                <option value="Social">Social</option>
+                <option value="Work">Work</option>
+                <option value="Entertainment">Entertainment</option>
+              </select>
             </div>
-          </div>
-        </form>
+            <div class="modal-form-buttons">
+              <div>
+                <button type="button" class="cancel-new-password btn-red">
+                  Cancel
+                </button>
+                <button class="btn-primary" type="submit">Save</button>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
-  </main>
-</body>
-
+    </main>
+  </body>
 </html>
