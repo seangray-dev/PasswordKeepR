@@ -42,25 +42,9 @@
 
   .nav-links {
     display: flex;
-  }
-
-  .btn-generator {
-    padding-left: 1rem;
-    margin-right: 1rem;
-  }
-
-  .btn-admin {
-    padding-left: 1rem;
-    margin-right: 1rem;
-  }
-
-  .btn-dashboard {
-    padding-left: 1rem;
-    margin-right: 1rem;
+    gap: 12px;
   }
 }
-
-
 
 .header {
   background-color: var(--color-heading);
@@ -668,7 +652,6 @@
         font-size: 12px;
       }
     }
-
   }
 
   .btn-secondary {
@@ -845,7 +828,6 @@
   display: flex;
   justify-content: flex-end;
 }
-
 
 // Error Page
 
