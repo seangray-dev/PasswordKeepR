@@ -345,7 +345,6 @@ deleteUserButtons.forEach((button) => {
 // When the confirm delete button is clicked, delete the user card and hide the deleteUserModal with fade-out animation
 confirmDeleteUserButton.addEventListener("click", async () => {
   if (userIdToDelete) {
-    console.log("Deleting user with ID:", userIdToDelete);
     // Get the user card element and remove it with fade-out animation
     const userCard = document.querySelector(
       `[data-user-id="${userIdToDelete}"]`
