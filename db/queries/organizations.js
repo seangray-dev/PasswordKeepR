@@ -94,6 +94,18 @@ const deleteOrganizationPasswordAndWebsite = async(organizationPasswordId, websi
     );
 };
 
+//Edit organization password
+const editOrganizationPassword = (newPassword, organizationPasswordId) => {
+  return db.query(
+    `
+    UPDATE org_passwords
+    SET password = $1
+    WHERE id = $2
+    `,
+    [encrypt(newPassword), organizationPasswordId]
+  );
+};
+
 // Create new organization password
 const createNewOrganizationPassword = async (
   organizationId,
@@ -138,5 +150,6 @@ module.exports = {
   getUsersByOrganizationId,
   getOrganizationIdByUserId,
   deleteOrganizationPasswordAndWebsite,
+  editOrganizationPassword,
   createNewOrganizationPassword
 };
