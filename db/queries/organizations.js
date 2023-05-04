@@ -165,6 +165,23 @@ const deleteUserById = async (userId) => {
   }
 };
 
+// Edit users password
+const updateUserPassword = async (userId, newPassword) => {
+  const query = `UPDATE users
+  SET PASSWORD = $1
+  WHERE id = $2
+  `;
+
+  const values = [newPassword, userId];
+
+  try {
+    await db.query(query, values);
+    console.log(`User with ID ${userId} password updated`);
+  } catch (err) {
+    console.log(`Error updating password for user with ID ${userId}:`, err);
+  }
+};
+
 module.exports = {
   getOrganizationByName,
   createOrganization,
@@ -174,4 +191,5 @@ module.exports = {
   editOrganizationPassword,
   createNewOrganizationPassword,
   deleteUserById,
+  updateUserPassword,
 };

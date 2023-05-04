@@ -52,7 +52,6 @@
             <%= organizationName.name %> Passwords
           </h2>
           <div>
-            <!-- add filter functionality here -->
             <button class="dashboard__passwords-add btn-primary">
               Add New
             </button>
@@ -136,9 +135,6 @@
                 </span>
                 <span class="show-password">******</span>
                 <div class="dashboard__passwords-buttons">
-                  <button class="edit-user">
-                    <i class="fa-solid fa-pencil fa-lg"></i>
-                  </button>
                   <button class="delete-user">
                     <i class="fa-solid fa-trash fa-lg"></i>
                   </button>
@@ -149,7 +145,7 @@
           </ul>
         </div>
         <% } else { %>
-        <p>No users found for this organization.</p>
+        <p class="dashboard">No users found for this organization.</p>
         <% } %>
       </section>
 
@@ -228,39 +224,6 @@
             <div class="modal-form-buttons">
               <div>
                 <button type="button" class="cancel-new-password btn-red">
-                  Cancel
-                </button>
-                <button class="btn-primary" type="submit">Save</button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-
-      <!-- Edit User Modal -->
-      <div class="modal" id="editUserModal">
-        <div class="modal-content">
-          <h2 class="modal-title">Edit User</h2>
-          <form class="modal-form">
-            <div class="form-group">
-              <label for="editUserPassword">Edit User Password</label>
-              <input
-                type="password"
-                id="editUserPassword"
-                name="editUserPassword"
-              />
-              <label for="confirmEditUserPassword"
-                >Confirm User Password:</label
-              >
-              <input
-                type="password"
-                id="confirmEditUserPassword"
-                name="confirmEditUserPassword"
-              />
-            </div>
-            <div class="modal-form-buttons">
-              <div>
-                <button type="button" class="cancel-edit-user btn-red">
                   Cancel
                 </button>
                 <button class="btn-primary" type="submit">Save</button>

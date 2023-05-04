@@ -119,13 +119,4 @@ router.delete("/", async (req, res) => {
   return res.sendStatus(200);
 });
 
-// // Delete user from organization and website
-// router.delete("/", async (req, res) => {
-//   if (!(await getUserById(req.session.userId))) {
-//     return res.send("Please login to delete user!");
-//   }
-
-//   return res.sendStatus(200);
-// });
-
 module.exports = router;
