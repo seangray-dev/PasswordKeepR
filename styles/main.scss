@@ -820,3 +820,29 @@
   display: flex;
   justify-content: flex-end;
 }
+
+// Error Page
+
+.error-page {
+  background-color: var(--color-ghostWhite);
+  font-family: var(--font-body);
+  font-weight: 700;
+  color: var(--color-heading);
+
+  &__title {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 1.6479rem + 1.5023vw, 3rem);
+    text-align: center;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+    color: var(--color-body);
+  }
+
+  &__message {
+    font-weight: 400;
+    font-size: 1rem;
+    text-align: center;
+    color: var(--color-body);
+    padding-bottom: 2rem;
+  }
+}
