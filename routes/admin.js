@@ -9,6 +9,7 @@ const {
 const {
   getUsersByOrganizationId,
   getOrganizationIdByUserId,
+  editOrganizationPassword,
   deleteOrganizationPasswordAndWebsite,
   createNewOrganizationPassword
  } = require("../db/queries/organizations");
@@ -70,6 +71,19 @@ router.post("/", async (req, res) => {
   await createNewOrganizationPassword(organizationId, userName, website, password);
 
   res.redirect("/admin");
+});
+
+router.put("/", async (req, res) => {
+  if (!(await getUserById(req.session.userId))) {
+    return res.send("Please login to edit password!");
+  }
+
+  // Update organization password in DB
+  const newPassword = req.body.newPassword;
+  const organizationPasswordId = req.body.organizationPasswordId;
+  await editOrganizationPassword(newPassword, organizationPasswordId);
+
+  return res.sendStatus(200);
 });
 
 router.delete("/", async (req, res) => {
