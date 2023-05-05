@@ -80,7 +80,7 @@ const generateRandomPassword = function (length, upper, lower, number, symbol) {
   }
   if (symbol) {
     output += symbols.charAt(Math.floor(Math.random() * symbols.length));
-    input += numbers;
+    input += symbols;
   }
 
   let remainingLength = length - output.length;
@@ -112,7 +112,7 @@ generateButton.addEventListener("click", () => {
       includeNumber.checked,
       includeSymbol.checked
     );
-    generatedPassword.innerHTML = randomPassword;
+    generatedPassword.textContent = randomPassword;
     generatedPassword.classList.remove("error-message-generator");
   }
 });
