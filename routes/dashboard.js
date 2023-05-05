@@ -7,6 +7,8 @@ const {
   getOrganizationPasswordsById,
   getOrganizationNameById,
   editUserPassword,
+  editUserPasswordAndUser,
+  editUserPasswordUser,
   deleteUserPasswordAndWebsite,
   createNewPassword,
 } = require("../db/queries/dashboard");
@@ -80,9 +82,28 @@ router.put("/", async (req, res) => {
   }
 
   // Update user password in DB
+  const newUsername = req.body.newUsername;
   const newPassword = req.body.newPassword;
   const userPasswordId = req.body.userPasswordId;
-  await editUserPassword(newPassword, userPasswordId);
+
+  // if new username is empty
+  if (!newUsername && newPassword && userPasswordId) {
+    await editUserPassword(newPassword, userPasswordId);
+  }
+
+  // if password fields are empty
+  if (!newPassword) {
+    await editUserPasswordUser(newUsername, userPasswordId);
+  }
+
+  // if all fields are present
+  if (newUsername && newPassword) {
+    await editUserPasswordAndUser(
+      newUsername,
+      newPassword,
+      userPasswordId
+    );
+  }
 
   return res.sendStatus(200);
 });
