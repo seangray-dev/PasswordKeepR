@@ -102,6 +102,12 @@ editPasswordButtons.forEach((button, index) => {
           // and then update its content with the new password
           const passwordSpan = passwordCard.querySelector(".hidden-password");
           passwordSpan.textContent = newPassword;
+          
+          //Update username without refreshing page
+          if (newUsername) {
+            const usernameSpan = passwordCard.querySelector(".dashboard__passwords-username");
+            usernameSpan.textContent = newUsername;
+          }
         } else {
           console.error("Failed to update password");
         }
