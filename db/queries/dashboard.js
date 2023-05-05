@@ -117,6 +117,29 @@ const editUserPassword = (newPassword, userPasswordId) => {
   );
 };
 
+const editUserPasswordUser = (newUser, userPasswordId) => {
+  return db.query(
+    `
+    UPDATE user_passwords
+    SET username = $1
+    WHERE id = $2
+    `,
+    [newUser, userPasswordId]
+  );
+};
+
+const editUserPasswordAndUser = (newUser, newPassword, userPasswordId) => {
+  return db.query(
+    `
+    UPDATE user_passwords
+    SET username = $1,
+        password = $2
+    WHERE id = $3
+    `,
+    [newUser, encrypt(newPassword), userPasswordId]
+  );
+};
+
 const deleteUserPasswordAndWebsite = async(userPasswordId, websiteId) => {
   // first delete user password from user_passwords table
   await db.query(
@@ -188,6 +211,8 @@ module.exports = {
   getOrganizationPasswordsById,
   getOrganizationNameById,
   editUserPassword,
+  editUserPasswordUser,
+  editUserPasswordAndUser,
   deleteUserPasswordAndWebsite,
   createNewPassword,
 };

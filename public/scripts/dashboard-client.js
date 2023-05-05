@@ -79,7 +79,7 @@ editPasswordButtons.forEach((button, index) => {
         // Get the password card element, then get the user password id from hidden html elements
         const passwordCard = button.closest(".dashboard__passwords-card");
         const userPasswordId = passwordCard.querySelector(".hidden-user-password-id").innerHTML;
-        const data = {newPassword: newPassword, userPasswordId: userPasswordId};
+        const data = {newUsername: newUsername, newPassword: newPassword, userPasswordId: userPasswordId};
 
         // Send request to backend to update password in DB
         const response = await fetch("/dashboard", {
